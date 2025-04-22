@@ -1,0 +1,297 @@
+
+#Images
+
+import cv2
+print("Package imported")
+img=cv2.imread("C:/Users/HP ULTRABOOK/OneDrive/Desktop/CyberPeak/Cyberpeak/Date experimentale/WhatsApp Image 2025-04-06 at 17.21.17_6f6aef8e.jpg")
+cv2.imshow("image",img)
+cv2.waitKey(0)
+
+#Joining images
+
+import cv2
+import numpy as np
+img=cv2.imread("C:/Users/HP ULTRABOOK/OneDrive/Desktop/CyberPeak/Cyberpeak/Date experimentale/WhatsApp Image 2025-04-06 at 17.38.01_b890c155.jpg")
+#imgStack=stackImages((0.5),[img,img,img]))
+imgjoinedh=np.hstack((img,img))
+imgjoinedv=np.vstack((img,img))
+cv2.imshow("Image",img)
+cv2.imshow("Image Joined horizontally",imgjoinedh)
+cv2.imshow("Image joined vertically", imgjoinedv)
+#cv2.imshow("Stacked images", imgStack)
+cv2.waitKey(0)
+
+#Basic functions
+
+import cv2
+import numpy as np
+img=cv2.imread("C:/Users/HP ULTRABOOK/OneDrive/Desktop/CyberPeak/Cyberpeak/Date experimentale/WhatsApp Image 2025-04-06 at 17.38.01_b890c155.jpg")
+kernel= np.ones((5,5),np.uint8)
+imgGray=cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+imgBlur=cv2.GaussianBlur(img,(7,7),0)
+imgCanny=cv2.Canny(img, 100, 100)
+imgDilation=cv2.dilate(imgCanny,kernel, iterations=1)
+ImgErode=cv2.erode(imgDilation,kernel,iterations=1)
+cv2.imshow("image", img)
+cv2.imshow("Image gray", imgGray)
+cv2.imshow("Image Blur", imgBlur)
+cv2.imshow("Image Canny", imgCanny)
+cv2.imshow("Image Dilation", imgDilation)
+cv2.imshow("Image erode",ImgErode)
+cv2.waitKey(0)
+
+#Resize and crop
+
+import numpy as np
+import cv2
+img=cv2.imread("C:/Users/HP ULTRABOOK/OneDrive/Desktop/CyberPeak/Cyberpeak/Date experimentale/WhatsApp Image 2025-04-06 at 17.38.01_b890c155.jpg")
+cv2.imshow("Image", img)
+print (img.shape)
+imgResize=cv2.resize(img,(300,200))
+cv2.imshow("Image Resize", imgResize)
+print(imgResize.shape)
+imgCropped=(img[0:1200, 200:700])
+cv2.imshow("Image Cropped", imgCropped)
+cv2.waitKey(0)
+
+#Shapes and text
+
+from pickletools import uint8
+import cv2
+import numpy as np
+img=np.zeros((512,512,3),np.uint8)
+img[:]=255,0,0
+cv2.line(img,(255,0), (500,500), (0,0,255),2)
+cv2.rectangle(img,(0,0),(300,400), (0,255,0), cv2.FILLED)
+cv2.putText(img,"Cyberpeak",(200, 200), cv2.FONT_ITALIC,2,(255, 0,255))
+cv2.imshow("Image", img)
+cv2.waitKey(0)
+
+#Warp perspective
+
+import cv2
+import numpy as np
+w,h=250,350
+img=cv2.imread("C:/Users/HP ULTRABOOK/OneDrive/Desktop/CyberPeak/Cyberpeak/Resources/cards.jpg")
+pt1=np.float32([[581,349],[653, 386],[276, 517],[365, 565]])
+pt2=np.float32([[0,0],[w,0],[0,h],[w,h]])
+matrix=cv2.getPerspectiveTransform(pt1,pt2)
+imgOutput=cv2.warpPerspective(img, matrix,(w,h))
+cv2.imshow("Image", img)
+cv2.imshow("Image Output", imgOutput)
+cv2.waitKey(0)
+
+
+#Videos
+
+import cv2
+cap=cv2.VideoCapture("C:/Users/HP ULTRABOOK/OneDrive/Desktop/CyberPeak/Cyberpeak/Resources/test_video.mp4")
+while(True):
+    success,img=cap.read()
+    cv2.imshow("Video", img)
+    if cv2.waitKey(1)&0xFF==ord("q"):
+        break
+
+#Webcam
+
+import cv2
+cap=cv2.VideoCapture(1)
+cap.set(3,640)
+cap.set(4,480)
+while(True):
+    success,img=cap.read()
+    cv2.imshow("Webcam", img)
+    if(cv2.waitKey(1)&0xFF==ord("q")):
+        break
+
+#Webcam writer
+
+import cv2
+cap=cv2.VideoCapture(1)
+cap.set(3,640)
+cap.set(4,480)
+fourcc = cv2.VideoWriter_fourcc(*'mp4v')  # Codec for MP4 files
+out = cv2.VideoWriter('output.mp4', fourcc, 20.0, (640, 480))  # File name, FPS
+while(True):
+    success, img=cap.read()
+    cv2.imshow("Webcam writer", img)
+    if(cv2.waitKey(1)&0xFF==ord('q')):
+        break
+        cap.release()
+        out.release()
+        cv2.destroyAllWindows()
+
+#Color Detection
+
+import cv2
+import numpy as np
+def empty(a):
+    pass
+cv2.namedWindow("Trackbars")
+cv2.resizeWindow("Trackbars",1000,1000)
+cv2.createTrackbar("Hue Min", "Trackbars",0,179,empty)
+cv2.createTrackbar("Hue Max","Trackbars", 0,179,empty)
+cv2.createTrackbar("Sat Min","Trackbars",0,255,empty)
+cv2.createTrackbar("Sat Max","Trackbars",0, 255, empty)
+cv2.createTrackbar("Val Min", "Trackbars",0, 255, empty)
+cv2.createTrackbar("Val Max", "Trackbars",0,255, empty)
+while True :
+   img = cv2.imread("C:/Users/HP ULTRABOOK/OneDrive/Desktop/CyberPeak/Cyberpeak/Date experimentale/WhatsApp Image 2025-04-06 at 17.38.01_b890c155.jpg")
+   hmin=cv2.getTrackbarPos("Hue Min","Trackbars")
+   hmax=cv2.getTrackbarPos("Hue Max","Trackbars")
+   smin=cv2.getTrackbarPos("Sat Min", "Trackbars")
+   smax=cv2.getTrackbarPos("Sat Max", "Trackbars")
+   vmin=cv2.getTrackbarPos("Val Min","Trackbars")
+   vmax=cv2.getTrackbarPos("Val Max", "Trackbars")
+   print (hmin,hmax,smin,smax,vmin,vmax)
+   lower=np.array([hmin,smin,vmin])
+   upper=np.array([hmax,smax,vmax])
+   imgHSV=cv2.cvtColor(img,cv2.COLOR_BGR2HSV)
+   mask=cv2.inRange(imgHSV,lower,upper)
+   imgresult=cv2.bitwise_and(img, img,mask=mask)
+   #imgstacked=np.hstack(([img,imgHSV,mask,imgresult]))
+   cv2.imshow("Image", img)
+   cv2.imshow("Image HSV", imgHSV)
+   cv2.imshow("Mask", mask)
+   cv2.imshow("Image Result",imgresult)
+   #cv2.imshow("Image Stacked", imgstacked)
+   cv2.waitKey(1)
+
+#Contour detection
+
+import cv2
+import numpy as np
+
+
+def getcontours(img):
+    contours, hierarchy = cv2.findContours(img, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    for cnt in contours:
+        area = cv2.contourArea(cnt)
+        print(area)
+        if (area > 1000):
+            cv2.drawContours(imgContour, cnt, -1, (255, 0, 0), 3)
+            peri = cv2.arcLength(cnt, True)
+            #print (peri)
+            approx = cv2.approxPolyDP(cnt, 0.02 * peri, True)
+            print(len(approx))
+            corner = len(approx)
+            x, y, w, h, = cv2.boundingRect(approx)
+            if corner == 3:
+                objectType = "Triangle"
+            elif corner == 4:
+                aspratio = w / float(h)
+                if (aspratio > 0.95 and aspratio < 1.05):
+                    objectType = "Square"
+                else:
+                    objectType = "Rectangle"
+            elif corner > 4:
+                objectType = "Circle"
+            else:
+                objectType = "None"
+            cv2.rectangle(imgContour, (x, y), (x + w, y + h), (0, 255, 0), 2)
+            cv2.putText(imgContour, objectType, (x + (w // 2) - 10, y + (h // 2) - 10), cv2.FONT_HERSHEY_COMPLEX, 0.5,
+                        (0, 0, 0), 2)
+
+
+img = cv2.imread("C:/Users/HP ULTRABOOK/OneDrive/Desktop/CyberPeak/Cyberpeak/OpenCV/Resources/Resources/shapes.png")
+imgContour = img.copy()
+imgGray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+imgBlur = cv2.GaussianBlur(imgGray, (7, 7), 1)
+imgCanny = cv2.Canny(imgBlur, 50, 50)
+getcontours(imgCanny)
+cv2.imshow("Image", img)
+cv2.imshow("Image Gray", imgGray)
+cv2.imshow("Image Blur", imgBlur)
+cv2.imshow("Image Canny", imgCanny)
+cv2.imshow("Image Contour", imgContour)
+cv2.waitKey(0)
+
+#Face Detection
+
+import cv2
+import numpy as np
+faceCascade=cv2.CascadeClassifier("C:/Users/HP ULTRABOOK/OneDrive/Desktop/CyberPeak/Cyberpeak/Resources/haarcascade_frontalface_default.xml")
+img=cv2.imread("C:/Users/HP ULTRABOOK/OneDrive/Desktop/CyberPeak/Cyberpeak/OpenCV/Resources/Resources/test.png")
+imgGray=cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
+faces=faceCascade.detectMultiScale(imgGray,1.1,4)
+for(x,y,w,h) in faces:
+    cv2.rectangle(img,(x,y),(x+w,y+h),(255,0,0),2)
+cv2.imshow("image",img)
+cv2.waitKey(0)
+
+#Dataset from webcam 
+
+import cv2
+import os
+
+# Create a directory to store the saved images
+save_dir = "saved_images"
+os.makedirs(save_dir, exist_ok=True)
+
+# Open a connection to the webcam
+cap = cv2.VideoCapture(1)  # 0 is the default camera. Use 1, 2, etc. for other cameras.
+
+frame_counter = 0
+
+try:
+    while True:
+        # Capture frame-by-frame
+        ret, frame = cap.read()
+
+        if not ret:
+            print("Failed to grab frame. Exiting...")
+            break
+
+        # Display the frame
+        cv2.imshow('Webcam Feed', frame)
+
+        # Save the frame as an image
+        frame_name = os.path.join(save_dir, f"frame_{frame_counter:04d}.jpg")
+        cv2.imwrite(frame_name, frame)
+        frame_counter += 1
+
+        # Press 'q' to quit the loop
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+            break
+finally:
+    # Release the webcam and close OpenCV windows
+    cap.release()
+    cv2.destroyAllWindows()
+
+print(f"Frames saved in: {save_dir}")
+
+#Pothole detection (images)
+
+import cv2
+import numpy as np
+potholeCascade = cv2.CascadeClassifier("C:/Users/HP ULTRABOOK/OneDrive/Desktop/Potholes haarcascade 2/classifier/cascade.xml")
+if potholeCascade.empty():
+    print("XML file not loaded")
+img=cv2.imread("C:/Users/HP ULTRABOOK/OneDrive/Desktop/CyberPeak/Cyberpeak/Resources/pothole.jpeg")
+imgGray=cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
+potholes=potholeCascade.detectMultiScale(imgGray,1.01,100,minSize=(30,30), maxSize=(300,300))
+for(x,y,w,h)  in potholes:
+    cv2.rectangle(img,(x,y),(x+w,y+h),(255,0,0),2)
+cv2.imshow("Image",img)
+cv2.waitKey(0)
+
+#Pothole detection (webcam)
+
+from sys import maxsize
+import cv2
+import numpy as np
+potholeCascade = cv2.CascadeClassifier("C:/Users/HP ULTRABOOK/OneDrive/Desktop/Potholes haarcascade 2/classifier/cascade.xml")
+if potholeCascade.empty():
+    print("XML file not loaded")
+cap=cv2.VideoCapture(1)
+cap.set(3,640)
+cap.set(4,480)
+while(True):
+    success,img=cap.read()
+    imgGray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    potholes = potholeCascade.detectMultiScale(imgGray, 1.01, 1000,minSize=(30,30),maxSize=(300,300))
+    for (x, y, w, h) in potholes:
+        cv2.rectangle(img, (x, y), (x + w, y + h), (255, 0, 0), 2)
+        cv2.imshow("Image", img)
+    if(cv2.waitKey(1)&0xFF==ord("q")):
+        break
