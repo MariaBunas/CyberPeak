@@ -1,0 +1,340 @@
+
+////images
+//#include<iostream>
+//#include<opencv2/imgcodecs.hpp>
+//#include<opencv2/highgui.hpp>
+//#include<opencv2/imgproc.hpp>
+//using namespace std;
+//using namespace cv;
+//int main()
+//{
+//	string path ="C:/Users/HP ULTRABOOK/OneDrive/Desktop/CyberPeak/Cyberpeak/Resources/test.png";
+//		Mat image = imread(path);
+//		imshow("Image", image);
+//		waitKey(0);
+//   return 0;
+//}
+//Videos
+#include<opencv2/imgcodecs.hpp>
+#include<opencv2/highgui.hpp>
+#include<opencv2/imgproc.hpp>
+#include<iostream>
+using namespace std;
+using namespace cv;
+int main()
+{
+	string path = "C:/Users/HP ULTRABOOK/OneDrive/Desktop/CyberPeak/Cyberpeak/OpenCV/Resources/Resources/test_video.mp4";
+	VideoCapture cap(path);
+	Mat image = imread(path);
+	while (true) {
+		cap.read(image);
+        waitKey(25);
+	}
+	return 0;
+}
+//Webcam 
+//#include<opencv2/imgcodecs.hpp>
+//#include<opencv2/highgui.hpp>
+//#include<opencv2/imgproc.hpp>
+//#include<iostream>
+//using namespace std;
+//using namespace cv;
+//int main()
+//{
+//	VideoCapture video(0);
+//	if (!video.isOpened())
+//		return -1;
+//	Mat frame;
+//	while (video.read(frame)) {
+//		imshow("Webcam", frame);
+//		if (waitKey(25) >= 0) {
+//			break;
+//		}
+//	}
+//	return 0;
+//}
+////////Webcam writer
+////#include<opencv2/imgcodecs.hpp>
+////#include<opencv2/highgui.hpp>
+////#include<opencv2/imgproc.hpp>
+////#include<iostream>
+////using namespace std;
+////using namespace cv;
+////int main()
+////{
+////	VideoCapture video(0);
+////	if (!video.isOpened())
+////		return -1;
+////	Mat frame;
+////	int framewidth = video.get(CAP_PROP_FRAME_WIDTH);
+////	int frameheight = video.get(CAP_PROP_FRAME_HEIGHT);
+////	VideoWriter output("output.avi", VideoWriter::fourcc('M', 'J', 'P', 'G'), 30, Size(framewidth, frameheight));
+////	while (video.read(frame)) {
+////		imshow("Webcam writer", frame);
+////		output.write(frame);
+////	if (waitKey(25) >= 0)
+////		break;
+////      }
+////	output.release();
+////	video.release();
+////	destroyAllWindows();
+////return 0;
+}
+//Basic functions
+#include<iostream>
+#include<opencv2/highgui.hpp>
+#include<opencv2/imgproc.hpp>
+#include<opencv2/imgcodecs.hpp>
+using namespace cv;
+using namespace std;
+int  main()
+{
+	string path = "C:/Users/HP ULTRABOOK/OneDrive/Desktop/CyberPeak/Cyberpeak/Resources/test.png";
+	Mat image = imread(path);
+	Mat imggray, imgblur, imgcanny, imgdil, imgerode;
+	Mat kernel = getStructuringElement(MORPH_RECT, Size(5, 5));
+	imshow("image", image);
+	cvtColor(image, imggray, COLOR_BGR2GRAY);
+	GaussianBlur(image, imgblur,Size(7,7),5,0);
+	Canny(imgblur, imgcanny, 25, 75);
+	dilate(imgcanny, imgdil, kernel);
+	erode(imgdil, imgerode, kernel);
+	imshow("image gray" , imggray);
+	imshow("image blur", imgblur);
+	imshow("image canny", imgcanny);
+	imshow("image dilation", imgdil);
+	imshow("image erode", imgerode);
+	waitKey(0);
+	return 0;
+}
+//Resize and crop
+//#include<iostream>
+//#include<opencv2/imgcodecs.hpp>
+//#include<opencv2/imgproc.hpp>
+//#include<opencv2/highgui.hpp>
+//using namespace std;
+//using namespace cv;
+//int main()
+//{
+//	string path = "C:/Users/HP ULTRABOOK/OneDrive/Desktop/CyberPeak/Cyberpeak/WhatsApp Image 2025-04-06 at 17.21.17_6f6aef8e.jpg";
+//	Mat imgresize, imgcrop;
+//	Mat img = imread(path);
+//	imshow("image", img);
+//	//cout << img.size() << "\n";
+//	resize(img, imgresize, Size(640, 300)); //for exact pixels
+//	//resize(img, imgresize, Size(), 0.5, 0.5); for scales
+//	Rect roi(100, 100, 500, 500);
+//	imgcrop = img(roi);
+//	imshow("image resize", imgresize);
+//	imshow("image crop", imgcrop);
+//	waitKey(0);
+//	return 0;
+//}
+//Shapes and text
+//#include<iostream>
+//#include<opencv2/highgui.hpp>
+//#include<opencv2/imgproc.hpp>
+//#include<opencv2/imgcodecs.hpp>
+//using namespace std;
+//using namespace cv;
+//int main()
+//{
+//	
+//	Mat img(512, 512, CV_8UC3, Scalar(255, 0, 0));
+//	circle(img, Point(200, 200),150, Scalar(255,0,255));
+//	rectangle(img,Point(250, 250), Point (500, 500),Scalar(0,255,0));
+//	line(img, Point(230, 230), Point(270, 230), Scalar(234, 234, 234));
+//	putText(img, "Cyberpeak", Point(100, 100), FONT_HERSHEY_COMPLEX,2,Scalar(200, 255, 255));
+//    imshow("image ", img);
+//	waitKey(0);
+//	return 0;
+//}
+//Warp perspective
+//#include<iostream>
+//#include<opencv2/highgui.hpp>
+//#include<opencv2/imgcodecs.hpp>
+//#include<opencv2/imgproc.hpp>
+//using namespace std;
+//using namespace cv;
+//Mat matrix, imgWarp;
+//int main()
+//{
+//	float width = 250, height = 350;
+//	string path = "C:/Users/HP ULTRABOOK/OneDrive/Desktop/CyberPeak/Cyberpeak/WhatsApp Image 2025-04-06 at 17.21.17_6f6aef8e.jpg";
+//	Mat img = imread(path);
+//	Point2f input[4] = { {581,349},{653, 386},{276, 517},{365, 565} };
+//	Point2f warp[4] = { {0.0f, 0.0f}, {width, 0.0f}, {0.0f, height}, {width, height} };
+//	matrix = getPerspectiveTransform(input, warp);
+//	warpPerspective(img, imgWarp, matrix, Point(width, height));
+//	for (int i = 0; i < 4; ++i) {
+//		circle(img, input[i], 4, Scalar(0, 0, 0));
+//	}
+//	imshow("image", img);
+//	imshow("image warp", imgWarp);
+//	waitKey(0);
+//	return 0;
+//}
+//Color Detection
+//#include<iostream>
+//#include<opencv2/highgui.hpp>
+//#include<opencv2/imgcodecs.hpp>
+//#include<opencv2/imgproc.hpp>
+//using namespace std;
+//using namespace cv;
+//Mat img, imgHSV, mask;
+//int hmin = 0, smin = 110, vmin = 153;
+//int hmax = 19, smax = 240, vmax = 255;
+//
+//int main()
+//{
+//	string path = "C:/Users/HP ULTRABOOK/OneDrive/Desktop/CyberPeak/Cyberpeak/WhatsApp Image 2025-04-06 at 17.21.17_6f6aef8e.jpg";
+//	Mat img = imread(path);
+//	cvtColor(img, imgHSV, COLOR_BGR2HSV);
+//	namedWindow("Trackbars", (500, 200));
+//	createTrackbar("hue min", "Trackbars", &hmin, 179);
+//	createTrackbar("hue max", "Trackbars", &hmax, 179);
+//	createTrackbar("sat min", "Trackbars", &smin, 255);
+//	createTrackbar("sat max", "Trackbars", &smax, 255);
+//	createTrackbar("val min", "Trackbars", &vmin, 255);
+//	createTrackbar("val max", "Trackbars", &vmax, 255);
+//
+//	while (true) {
+//		Scalar lower(hmin, smin, vmin);
+//		Scalar upper(hmax, smax, vmax);
+//		inRange(imgHSV, lower, upper, mask);
+//		imshow("image", img);
+//		imshow("image HSV", imgHSV);
+//		imshow("image Mask", mask);
+//		waitKey(1);
+//	}
+//		return 0;
+//}
+//Shape Detection
+#include<iostream>
+#include<opencv2/imgcodecs.hpp>
+#include<opencv2/imgproc.hpp>
+#include<opencv2/highgui.hpp>
+using namespace std;
+using namespace cv;
+Mat imgGray, imgBlur, imgCanny, imgDil, imgErode;
+void getContours(Mat imgDil, Mat img) {
+	vector<vector<Point>> contours;
+	vector<Vec4i> hierarchy;
+	vector<vector<Point>> polytype(contours.size());
+	vector<Rect>boundrect(contours.size());
+	string objecttype;
+	findContours(imgDil, contours, hierarchy, RETR_EXTERNAL, CHAIN_APPROX_SIMPLE);
+	
+	for (int i = 0; i < contours.size(); ++i) {
+		int area = contourArea(contours[i]);
+		cout << area << "\n";
+		if (area > 1000) {
+			 float type = arcLength(contours[i], true);
+			 approxPolyDP(contours[i], polytype[i], 0.02 * type, true);
+		    cout << polytype.size() << endl;
+			boundrect[i] = boundingRect(polytype[i]);
+		
+			int objectnum = (int)polytype[i].size();
+			if (objectnum == 3)
+				objecttype = "Triangle";
+			if (objectnum == 4) {
+				float aspRatio = (float)boundrect[i].width / (float)boundrect[i].height;
+				if (aspRatio > 0.95 && aspRatio < 1.05)
+					objecttype = "Square";
+				else
+					objecttype = "Rectangle";
+			}
+			if (objectnum > 4)
+				objecttype = "Circle";
+			drawContours(img, contours, i, Scalar(255, 0, 255), 2);
+			rectangle(img, boundrect[i].tl(), boundrect[i].br(), Scalar(0, 255, 0), 5);
+			putText(img, objecttype, { boundrect[i].x,boundrect[i].y - 5 },FONT_HERSHEY_COMPLEX,0.75, Scalar(0, 255,0));
+		}
+	}
+}
+//Haarcascade
+int main()
+{
+	string path = "C:/Users/HP ULTRABOOK/OneDrive/Desktop/CyberPeak/Cyberpeak/Resources/shapes.png";
+	Mat img = imread(path);
+	cvtColor(img, imgGray, COLOR_BGR2GRAY);
+	GaussianBlur(img, imgBlur, Size(3, 3), 3, 0);
+	Canny(imgBlur, imgCanny, 25, 75);
+	Mat kernel = getStructuringElement(MORPH_RECT, Size(3, 3));
+	dilate(imgCanny, imgDil, kernel);
+	getContours(imgDil, img);
+	imshow("Image", img);
+	/*imshow("Image Gray", imgGray);
+	imshow("Image Blur", imgBlur);
+	imshow("Image Canny", imgCanny);
+	imshow("Image Dilation", imgDil);*/
+    waitKey(0);
+	return 0;
+}
+#include <librealsense2/rs.hpp>   // Biblioteca Intel RealSense
+#include <opencv2/opencv.hpp>      // OpenCV pentru procesarea imaginilor
+#include <iostream>
+#include <vector>
+
+int main() {
+    // Inițializarea pipeline-ului RealSense
+    rs2::pipeline pipeline;
+    rs2::config config;
+    config.enable_stream(RS2_STREAM_DEPTH, 640, 480, RS2_FORMAT_Z16, 30);
+    pipeline.start(config);
+
+    cv::namedWindow("Detectare Gropi", cv::WINDOW_AUTOSIZE);
+
+    while (true) {
+        // Capturarea cadrelor
+        rs2::frameset frames = pipeline.wait_for_frames();
+        rs2::depth_frame depth_frame = frames.get_depth_frame();
+
+        // Verificare cadru valid
+        if (!depth_frame) continue;
+
+        // Convertirea datelor de adâncime într-o matrice OpenCV
+        cv::Mat depth_image(cv::Size(640, 480), CV_16U, (void*)depth_frame.get_data(), cv::Mat::AUTO_STEP);
+        cv::Mat depth_norm, depth_colormap;
+
+        // Normalizarea datelor pentru vizualizare
+        depth_image.convertTo(depth_norm, CV_8U, 0.03);
+        cv::applyColorMap(depth_norm, depth_colormap, cv::COLORMAP_JET);
+
+        // Detectarea marginilor pentru variații de adâncime
+        cv::Mat edges;
+        cv::Canny(depth_norm, edges, 50, 150);
+
+        // Găsirea contururilor în imaginea detectată
+        std::vector<std::vector<cv::Point>> contours;
+        cv::findContours(edges, contours, cv::RETR_EXTERNAL, cv::CHAIN_APPROX_SIMPLE);
+
+        // Procesarea contururilor
+        for (const auto& contour : contours) {
+            if (cv::contourArea(contour) > 1000) {  // Filtrare pentru a elimina zgomotul
+                cv::Moments M = cv::moments(contour);
+                if (M.m00 != 0) {
+                    int cx = static_cast<int>(M.m10 / M.m00);
+                    int cy = static_cast<int>(M.m01 / M.m00);
+
+                    // Desenarea unui cerc roșu pentru gropi detectate
+                    cv::circle(depth_colormap, cv::Point(cx, cy), 10, cv::Scalar(0, 0, 255), -1);
+                }
+            }
+        }
+
+        // Afișarea rezultatului
+        cv::imshow("Detectare Gropi", depth_colormap);
+
+        // Ieșire la apăsarea tastei 'q'
+        if (cv::waitKey(1) == 'q') {
+            break;
+        }
+    }
+
+    // Curățarea resurselor
+    pipeline.stop();
+    cv::destroyAllWindows();
+
+    return 0;
+}
