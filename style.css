@@ -1,5 +1,5 @@
 //
-<style>
+
 #earthVideo {
     width: 80%;
     height: auto;
@@ -15,7 +15,7 @@
 #earth-container {
     transition: opacity 2s ease-in-out;
 }
-</style>
+//
 
 
 
