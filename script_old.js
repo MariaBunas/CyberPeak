@@ -84,8 +84,3 @@ function clearMarkers() {
     markers.forEach(marker => map.removeLayer(marker));
     markers = [];
 }
-
-function clearMarkers() {
-    markers.forEach(marker => map.removeLayer(marker));
-    markers = [];
-}
