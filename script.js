@@ -6,7 +6,7 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 let markers = [];
 
 // 📌 Adăugare manuală a markerului pe hartă când utilizatorul face dbl click
-map.on('dblclick', function (e) {
+map.on('click', function (e) {
     const marker = L.marker([e.latlng.lat, e.latlng.lng]).addTo(map);
     markers.push(marker);
 
