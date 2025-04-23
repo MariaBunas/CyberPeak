@@ -56,8 +56,7 @@ function clearMarkers() {
     markers.forEach(marker => map.removeLayer(marker));
     markers = [];
 }
-
-
+  
 // 📌 Citim locațiile din CSV și adăugăm markerii pe hartă
 fetch('https://cyberpeak-server.onrender.com/locations.csv')
     .then(response => response.text())
@@ -71,10 +70,11 @@ fetch('https://cyberpeak-server.onrender.com/locations.csv')
                     const lng = parseFloat(row.longitude);
                     const name = row.name || 'Unnamed Location';
                     const severity = (row.severity || '').toLowerCase();
+                    const icon = icons[severity] || icons['ok']; 
                     const imageUrl = `https://cyberpeak-server.onrender.com/${row.image}`;
 
                     if (!isNaN(lat) && !isNaN(lng)) {
-                        const marker = L.marker([lat, lng]).addTo(map)
+                        const marker = L.marker([lat, lng], { icon : icon}).addTo(map)
                             .bindPopup(`
                                 <strong>${name}</strong><br>
                                 Severitate: ${severity} <br>
