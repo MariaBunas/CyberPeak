@@ -51,12 +51,6 @@ document.getElementById("report-hole").addEventListener("click", function() {
 });
 */
 
-// 📌 Funcție pentru ștergerea markerelor
-function clearMarkers() {
-    markers.forEach(marker => map.removeLayer(marker));
-    markers = [];
-}
-  
 // 📌 Citim locațiile din CSV și adăugăm markerii pe hartă
 fetch('https://cyberpeak-server.onrender.com/locations.csv')
     .then(response => response.text())
@@ -65,6 +59,8 @@ fetch('https://cyberpeak-server.onrender.com/locations.csv')
             header: true,
             skipEmptyLines: true,
             complete: function(results) {
+                alert("load data table ..");
+
                 results.data.forEach(row => {
                     const lat = parseFloat(row.latitude);
                     const lng = parseFloat(row.longitude);
@@ -74,6 +70,7 @@ fetch('https://cyberpeak-server.onrender.com/locations.csv')
                     // const imageUrl = `https://cyberpeak-server.onrender.com/${row.image}`;
                     // const imageUrl = `https://cyberpeak-server.onrender.com/uploads/${row.image}`;
                     const imageUrl = 'c';
+
                     alert("load data row ..");
 
                     if (!isNaN(lat) && !isNaN(lng)) {
@@ -89,3 +86,11 @@ fetch('https://cyberpeak-server.onrender.com/locations.csv')
         });
     })
     .catch(error => console.error("Eroare la citirea locațiilor:", error));
+
+// 📌 Funcție pentru ștergerea markerelor
+function clearMarkers() {
+    markers.forEach(marker => map.removeLayer(marker));
+    markers = [];
+}
+  
+
