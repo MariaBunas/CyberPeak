@@ -67,6 +67,8 @@ fetch(csvUrl)
             complete: function(results) {
                 const data = results.data;
 
+                console.log("Locații citite:", data);  // ✅ Testează dacă CSV-ul este citit corect
+
                 data.forEach(row => {
                     const lat = parseFloat(row.latitude);
                     const lng = parseFloat(row.longitude);
@@ -77,6 +79,8 @@ fetch(csvUrl)
                     if (!isNaN(lat) && !isNaN(lng)) {
                         L.marker([lat, lng], { icon }).addTo(map)
                             .bindPopup(`<strong>${name}</strong><br>Severity: ${severity}`);
+                    } else {
+                        console.warn("Locație ignorată (date invalide):", row);
                     }
                 });
             }
@@ -85,3 +89,19 @@ fetch(csvUrl)
     .catch(error => {
         console.error('Error fetching or parsing the CSV:', error);
     });
+
+// ✅ Corectarea problemei cu legenda
+const legend = L.control({ position: 'bottomright' });
+
+legend.onAdd = function () {
+    let div = L.DomUtil.create('div', 'info-legend');
+    div.innerHTML = `
+        <strong>Severity</strong><br>
+        <div style="color: red;">🔴 Bad</div>
+        <div style="color: yellow;">🟡 Pretty Bad</div>
+        <div style="color: green;">🟢 OK</div>
+    `;
+    return div;
+};
+
+legend.addTo(map);
