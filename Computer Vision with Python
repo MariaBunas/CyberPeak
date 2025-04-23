@@ -295,3 +295,23 @@ while(True):
         cv2.imshow("Image", img)
     if(cv2.waitKey(1)&0xFF==ord("q")):
         break
+
+#Pothole detection webcam using canny images
+
+import cv2
+import numpy as np
+potholeCascade = cv2.CascadeClassifier("C:/Users/HP ULTRABOOK/OneDrive/Desktop/Potholes haarcascade 2/classifier/cascade.xml")
+if potholeCascade.empty():
+    print("XML file not loaded")
+cap=cv2.VideoCapture(1)
+cap.set(3,640)
+cap.set(4,480)
+while(True):
+    success,img=cap.read()
+    imgGray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    potholes = potholeCascade.detectMultiScale(imgGray, 1.08, 10)
+    for (x, y, w, h) in potholes:
+        cv2.rectangle(img, (x, y), (x + w, y + h), (255, 0, 0), 2)
+    cv2.imshow("Image", img)
+    if(cv2.waitKey(1)&0xFF==ord("q")):
+        break
