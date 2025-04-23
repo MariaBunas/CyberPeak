@@ -1,4 +1,4 @@
-//
+/*
 document.addEventListener("DOMContentLoaded", function () {
     let video = document.getElementById("earthVideo");
     setTimeout(() => {
@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }, 2000);
     }, 5000);
 });
-
+*/
 
 const map = L.map('map').setView([45.9432, 24.9668], 6);
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
