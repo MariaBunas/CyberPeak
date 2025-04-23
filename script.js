@@ -67,7 +67,7 @@ fetch(csvUrl)
             complete: function(results) {
                 const data = results.data;
 
-                console.log("Locații citite:", data);  // ✅ Testează dacă CSV-ul este citit corect
+                console.log("Locații citite:", data);
 
                 data.forEach(row => {
                     const lat = parseFloat(row.latitude);
@@ -104,4 +104,5 @@ legend.onAdd = function () {
     return div;
 };
 
+legend.addTo(map);
 legend.addTo(map);
