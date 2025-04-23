@@ -1,18 +1,23 @@
 //
+<style>
 #earthVideo {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    object-fit: cover;
-    animation: rotateEarth 10s linear infinite;
+    width: 80%;
+    height: auto;
+    animation: rotateEarth 8s linear forwards;
 }
 
 @keyframes rotateEarth {
     from { transform: rotate(0deg) scale(1); }
-    to { transform: rotate(360deg) scale(1.2); }
+    to { transform: rotate(360deg) scale(1.5); }
 }
+
+/* Fade-out pentru a trece la hartă */
+#earth-container {
+    transition: opacity 2s ease-in-out;
+}
+</style>
+
+
 
 
 #map {
