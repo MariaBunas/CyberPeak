@@ -71,7 +71,10 @@ fetch('https://cyberpeak-server.onrender.com/locations.csv')
                     const name = row.name || 'Unnamed Location';
                     const severity = (row.severity || '').toLowerCase();
                     const icon = icons[severity] || icons['ok']; 
-                    const imageUrl = `https://cyberpeak-server.onrender.com/${row.image}`;
+                    // const imageUrl = `https://cyberpeak-server.onrender.com/${row.image}`;
+                    // const imageUrl = `https://cyberpeak-server.onrender.com/uploads/${row.image}`;
+                    const imageUrl = 'c';
+                    alert("load data row ..");
 
                     if (!isNaN(lat) && !isNaN(lng)) {
                         const marker = L.marker([lat, lng], { icon : icon}).addTo(map)
