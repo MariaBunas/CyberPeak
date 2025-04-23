@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 */
 
-const map = L.map('map').setView([45.9432, 24.9668], 6);
+/*const map = L.map('map').setView([45.9432, 24.9668], 6);
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; OpenStreetMap contributors'
 }).addTo(map);
@@ -27,3 +27,61 @@ function clearMarkers() {
     markers.forEach(marker => map.removeLayer(marker));
     markers = [];
 }
+*/
+const map = L.map('map').setView([45.9432, 24.9668], 6);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap contributors'
+}).addTo(map);
+
+// Definirea icon-urilor
+const icons = {
+    ok: L.icon({
+        iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png',
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34]
+    }),
+    warning: L.icon({
+        iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-yellow.png',
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34]
+    }),
+    bad: L.icon({
+        iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png',
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34]
+    })
+};
+
+// URL-ul fișierului CSV
+const csvUrl = 'https://raw.githubusercontent.com/popsaraizabela/CyberPeak-harta-interactiva/load-locations-from-csv/locations.csv';
+
+fetch(csvUrl)
+    .then(response => response.text())
+    .then(csvText => {
+        Papa.parse(csvText, {
+            header: true,
+            skipEmptyLines: true,
+            complete: function(results) {
+                const data = results.data;
+
+                data.forEach(row => {
+                    const lat = parseFloat(row.latitude);
+                    const lng = parseFloat(row.longitude);
+                    const name = row.name || 'Unnamed Location';
+                    const severity = (row.severity || '').toLowerCase();
+                    const icon = icons[severity] || icons['ok'];
+
+                    if (!isNaN(lat) && !isNaN(lng)) {
+                        L.marker([lat, lng], { icon }).addTo(map)
+                            .bindPopup(`<strong>${name}</strong><br>Severity: ${severity}`);
+                    }
+                });
+            }
+        });
+    })
+    .catch(error => {
+        console.error('Error fetching or parsing the CSV:', error);
+    });
