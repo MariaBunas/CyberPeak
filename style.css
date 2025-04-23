@@ -1,25 +1,3 @@
-//
-
-#earthVideo {
-    width: 80%;
-    height: auto;
-    animation: rotateEarth 8s linear forwards;
-}
-
-@keyframes rotateEarth {
-    from { transform: rotate(0deg) scale(1); }
-    to { transform: rotate(360deg) scale(1.5); }
-}
-
-/* Fade-out pentru a trece la hartă */
-#earth-container {
-    transition: opacity 2s ease-in-out;
-}
-//
-
-
-
-
 #map {
     height: 500px;
     width: 100%;
