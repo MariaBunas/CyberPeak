@@ -1,25 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>  
-  <title>Hartă Interactivă</title>
+  <title>Hartă Interactivă - Cyberpeak</title>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
  
-  <!-- Leaflet CSS and JS -->
+  <!-- Leaflet CSS și Three.js -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
   <link rel="stylesheet" href="style.css">
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-
-  <!-- PapaParse CSV Parser -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
   <style>
-    #map {
-      height: 600px;
-      width: 100%;
-    }
+    body { margin: 0; overflow: hidden; font-family: Arial, sans-serif; text-align: center; }
 
-    /* Stilizare video */
+    /* Container pentru animația globului */
     #earth-container {
       position: fixed;
       top: 0;
@@ -33,63 +28,32 @@
       transition: opacity 2s ease-in-out;
     }
 
-    #earthVideo {
-      width: 80%;
-      height: auto;
-      animation: rotateEarth 8s linear forwards;
-    }
-
-    @keyframes rotateEarth {
-      from { transform: rotate(0deg) scale(1); }
-      to { transform: rotate(360deg) scale(1.5); }
-    }
-
-    /* Ascunderea hărții inițial */
     #map-container {
       display: none;
+      margin: 20px;
+    }
+
+    #map {
+      height: 500px;
+      width: 100%;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      background-color: white;
     }
   </style>
 </head>
 <body>
 
-  <!-- Container pentru videoclipul Pământului -->
-  <div id="earth-container">
-    <video id="earthVideo" src="https://www.example.com/video.mp4" autoplay muted loop></video>
-  </div>
+  <!-- Animația globului Pământului -->
+  <div id="earth-container"></div>
 
-  <!-- Harta interactivă (ascunsă inițial) -->
+  <!-- Harta interactivă -->
   <div id="map-container">
     <h2>🗺️ Hartă Interactivă - Cyberpeak</h2>
     <div id="map"></div>
   </div>
 
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      let video = document.getElementById("earthVideo");
-      let earthContainer = document.getElementById("earth-container");
-      let mapContainer = document.getElementById("map-container");
-
-      // Încetinește treptat rotația
-      setTimeout(() => {
-          video.style.animation = "rotateEarth 4s linear forwards";
-      }, 4000);
-
-      // După 6 secunde, ascunde video și afișează harta
-      setTimeout(() => {
-          earthContainer.style.opacity = 0;
-          setTimeout(() => {
-              earthContainer.style.display = "none";
-              mapContainer.style.display = "block";
-          }, 2000);
-      }, 6000);
-    });
-
-    // Initialize the map
-    const map = L.map('map').setView([45.76, 21.23], 6);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; OpenStreetMap contributors'
-    }).addTo(map);
-  </script>
+  <script src="animation.js"></script>
+  <script src="script.js"></script>
 
 </body>
-</html>
