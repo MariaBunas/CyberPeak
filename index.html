@@ -16,7 +16,7 @@ href="https://unpkg.com/leaflet/dist/leaflet.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js">
 </script>
  
-<script type="text/javascript" src="script.js"></script>
+<!-- <script type="text/javascript" src="script.js"></script> -->
 
 <style> 
 #map { height: 600px; width: 100%; } 
@@ -90,8 +90,8 @@ fetch('https://raw.githubusercontent.com/MariaBunas/Cyberpeak-Backend/refs/heads
                  const icon = icons[severity] || icons['ok']; 
                  // const imageUrl = `https://cyberpeak-server.onrender.com/${row.image}`;
                  // const imageUrl = `https://cyberpeak-server.onrender.com/uploads/${row.image}`;
-                 const imageUrl = 'https://raw.githubusercontent.com/MariaBunas/Cyberpeak-Backend/refs/heads/main/uploads/test.jpg';
-
+                 const imageUrl = 'https://raw.githubusercontent.com/MariaBunas/Cyberpeak-Backend/main/uploads/test.jpg';
+              
                  if (!isNaN(lat) && !isNaN(lng)) {
                      const marker = L.marker([lat, lng], { icon : icon}).addTo(map)
                          .bindPopup(`
