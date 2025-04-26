@@ -16,7 +16,7 @@ href="https://unpkg.com/leaflet/dist/leaflet.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js">
 </script>
  
-<!-- <script type="text/javascript" src="script.js"></script> -->
+<script type="text/javascript" src="script.js"></script>
 
 <style> 
 #map { height: 600px; width: 100%; } 
@@ -72,6 +72,8 @@ OK</div>
 return div; 
 }; 
 legend.addTo(map);
+
+testMeAlert();
 
 // 📌 Citim locațiile din CSV și adăugăm markerii pe hartă
 // fetch('https://cyberpeak-server.onrender.com/file/locations.csv')
