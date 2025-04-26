@@ -52,6 +52,8 @@ document.getElementById("report-hole").addEventListener("click", function() {
 });
 */
 
+ alert("Hello 1!");
+
 // 📌 Citim locațiile din CSV și adăugăm markerii pe hartă
 // fetch('https://cyberpeak-server.onrender.com/file/locations.csv')
    fetch('https://raw.githubusercontent.com/MariaBunas/Cyberpeak-Backend/refs/heads/main/locations.csv')
