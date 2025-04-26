@@ -91,7 +91,7 @@ fetch('https://raw.githubusercontent.com/MariaBunas/Cyberpeak-Backend/refs/heads
                  // const imageUrl = `https://cyberpeak-server.onrender.com/${row.image}`;
                  // const imageUrl = `https://cyberpeak-server.onrender.com/uploads/${row.image}`;
                  const imageUrl = 'https://raw.githubusercontent.com/MariaBunas/Cyberpeak-Backend/main/uploads/' + row.image;
-                 const image1Url = `https://cyberpeak-server.onrender.com/image/' + row.image;
+                 const image1Url = 'https://cyberpeak-server.onrender.com/image/' + row.image;
                               
                  if (!isNaN(lat) && !isNaN(lng)) {
                      const marker = L.marker([lat, lng], { icon : icon}).addTo(map)
