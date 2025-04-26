@@ -88,9 +88,7 @@ fetch('https://raw.githubusercontent.com/MariaBunas/Cyberpeak-Backend/refs/heads
                  const name = row.name || 'Unnamed Location';
                  const severity = (row.severity || '').toLowerCase();
                  const icon = icons[severity] || icons['ok']; 
-                 // const imageUrl = `https://cyberpeak-server.onrender.com/${row.image}`;
-                 // const imageUrl = `https://cyberpeak-server.onrender.com/uploads/${row.image}`;
-                 const imageUrl = 'https://raw.githubusercontent.com/MariaBunas/Cyberpeak-Backend/main/uploads/' + row.image;
+                 //const imageUrl = 'https://raw.githubusercontent.com/MariaBunas/Cyberpeak-Backend/main/uploads/' + row.image;
                  const image1Url = 'https://cyberpeak-server.onrender.com/image/' + row.image;
                               
                  if (!isNaN(lat) && !isNaN(lng)) {
@@ -98,9 +96,9 @@ fetch('https://raw.githubusercontent.com/MariaBunas/Cyberpeak-Backend/refs/heads
                          .bindPopup(`
                              <strong>${name}</strong><br>
                              Severitate: ${severity} <br>
-                             Imagine: ${imageUrl} <br>
-                             Imagine1: ${image1Url} <br>
-                             <img src="${imageUrl}" alt="Imagine locație" width="200px">
+                             //Imagine: ${imageUrl} <br>
+                             Imagine: ${image1Url} <br>
+                             //<img src="${imageUrl}" alt="Imagine locație" width="200px">
                              <img src="${image1Url}" alt="Imagine locație" width="200px">
                          `);
                  }
