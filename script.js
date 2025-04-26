@@ -57,6 +57,7 @@ document.getElementById("report-hole").addEventListener("click", function() {
    fetch('https://raw.githubusercontent.com/MariaBunas/Cyberpeak-Backend/refs/heads/main/locations.csv')
     .then(response => response.text())
     .then(csvText => {
+        alert("Hello! I am an alert box!!");
         Papa.parse(csvText, {
             header: true,
             skipEmptyLines: true,
