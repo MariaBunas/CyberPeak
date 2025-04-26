@@ -32,6 +32,11 @@ function sendLocationToServer(locationData) {
     .catch(error => console.error("Eroare la trimiterea locației:", error));
 }
 
+document.addEventListener("DOMContentLoaded", function () {
+    // Your JavaScript code here
+    alert("test me!");
+});
+
 /*
 // 📌 Capturarea locației GPS a utilizatorului
 document.getElementById("report-hole").addEventListener("click", function() {
