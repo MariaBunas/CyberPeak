@@ -53,7 +53,8 @@ document.getElementById("report-hole").addEventListener("click", function() {
 */
 
 // 📌 Citim locațiile din CSV și adăugăm markerii pe hartă
-fetch('https://cyberpeak-server.onrender.com/locations.csv')
+// fetch('https://cyberpeak-server.onrender.com/file/locations.csv')
+   fetch('https://raw.githubusercontent.com/mariabunas/CyberPeak/main/locations.csv')
     .then(response => response.text())
     .then(csvText => {
         Papa.parse(csvText, {
