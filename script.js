@@ -16,6 +16,10 @@ map.on('click', function (e) {
     sendLocationToServer(newLocation);
 });
 
+function testMeAlert(){
+    alert("test me!");
+}
+
 // 📌 Funcție de trimitere către backend
 function sendLocationToServer(locationData) {
     fetch('/upload', {
@@ -51,46 +55,6 @@ document.getElementById("report-hole").addEventListener("click", function() {
     }
 });
 */
-
- alert("Hello 1!");
-
-// 📌 Citim locațiile din CSV și adăugăm markerii pe hartă
-// fetch('https://cyberpeak-server.onrender.com/file/locations.csv')
-   fetch('https://raw.githubusercontent.com/MariaBunas/Cyberpeak-Backend/refs/heads/main/locations.csv')
-    .then(response => response.text())
-    .then(csvText => {
-        alert("Hello! I am an alert box!!");
-        Papa.parse(csvText, {
-            header: true,
-            skipEmptyLines: true,
-            complete: function(results) {
-                alert("load data table ..");
-
-                results.data.forEach(row => {
-                    const lat = parseFloat(row.latitude);
-                    const lng = parseFloat(row.longitude);
-                    const name = row.name || 'Unnamed Location';
-                    const severity = (row.severity || '').toLowerCase();
-                    const icon = icons[severity] || icons['ok']; 
-                    // const imageUrl = `https://cyberpeak-server.onrender.com/${row.image}`;
-                    // const imageUrl = `https://cyberpeak-server.onrender.com/uploads/${row.image}`;
-                    const imageUrl = 'c';
-
-                    alert("load data row ..");
-
-                    if (!isNaN(lat) && !isNaN(lng)) {
-                        const marker = L.marker([lat, lng], { icon : icon}).addTo(map)
-                            .bindPopup(`
-                                <strong>${name}</strong><br>
-                                Severitate: ${severity} <br>
-                                <img src="${imageUrl}" alt="Imagine locație" width="200px">
-                            `);
-                    }
-                });
-            }
-        });
-    })
-    .catch(error => console.error("Eroare la citirea locațiilor:", error));
 
 // 📌 Funcție pentru ștergerea markerelor
 function clearMarkers() {
