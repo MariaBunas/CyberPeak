@@ -34,7 +34,7 @@ function sendLocationToServer(locationData) {
 
 document.addEventListener("DOMContentLoaded", function () {
     // Your JavaScript code here
-    alert("test me!");
+    
 });
 
 /*
