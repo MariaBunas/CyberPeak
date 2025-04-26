@@ -18,7 +18,7 @@ map.on('click', function (e) {
 
 // 📌 Funcție de trimitere către backend
 function sendLocationToServer(locationData) {
-    fetch('/save-location', {
+    fetch('/upload', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ location: locationData })
