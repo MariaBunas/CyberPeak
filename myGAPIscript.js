@@ -1,6 +1,6 @@
 const API_KEY = "AIzaSyBE4jeVMYnAio8DgHU8EudkIJyA_M3odFU"; // Replace with your actual API key
 
-async function getFileId(fileName, extension) {
+async function getFileId_old(fileName, extension) {
     // const url = `https://www.googleapis.com/drive/v3/files?q=name='${fileName}' and trashed=false&key=${API_KEY}&fields=files(id,name)`;
     // const url = `https://www.googleapis.com/drive/v3/files?q=title='${fileName}' and fileExtension='${extension}' and trashed=false&key=${API_KEY}&fields=files(id,name)`;
     //title="File_1.xml" and fileExtension="xml"
@@ -15,6 +15,33 @@ async function getFileId(fileName, extension) {
         return null;
     }
 }
+
+async function getFileId(fileName) {
+    // const url = `https://www.googleapis.com/drive/v3/files?q=name='${fileName}' and trashed=false&key=${API_KEY}&fields=files(id,name)`;
+    // const url = `https://www.googleapis.com/drive/v3/files?q=title='${fileName}' and fileExtension='${extension}' and trashed=false&key=${API_KEY}&fields=files(id,name)`;
+    //title="File_1.xml" and fileExtension="xml"
+    //const url = `https://www.googleapis.com/drive/v3/files?q=name='${fileName}'&key=${API_KEY}&fields=files(id,name)`;
+    const url = "https://www.googleapis.com/drive/v3/files?q='" + folderId + "'+in+parents&key=" + API_KEY;
+    const response = await fetch(url);
+    const data = await response.json();
+
+    var index = -1;
+    if (data.files && data.files.length > 0) {
+        for(var i=0; i<data.files.length; i++)
+        {
+            if(data.files[i].name === fileName) {
+                index = i;
+            }
+        }
+    if ( index > -1 ) {
+        return data.files[index].id; // Get first matching file ID
+    } else {
+        console.error("File not found.");
+        return null;
+    }
+}
+
+
 
 async function searchImage() {
     const fileName = document.getElementById("fileName").value;
