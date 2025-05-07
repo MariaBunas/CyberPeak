@@ -7,11 +7,8 @@ async function getFileId(fileName) {
     //const url = `https://www.googleapis.com/drive/v3/files?q=name='${fileName}'&key=${API_KEY}&fields=files(id,name)`;
     const folderId = "1lCpQoNRIPs6Q294Vt7JwDoq5GhPKEf6b";
     const url = "https://www.googleapis.com/drive/v3/files?q='" + folderId + "'+in+parents&key=" + API_KEY;
-    // const response = await fetch(url);
-    // const data = await response.json();
-
-    const response = fetch(url);
-    const data = response.json();
+    const response = await fetch(url);
+    const data = await response.json();
 
     alert(fileName);
     
