@@ -34,8 +34,10 @@ async function getFileId(fileName) {
             }
         }
     if ( index > -1 ) {
+         alert("found index " + index);
         return data.files[index].id; // Get first matching file ID
     } else {
+        alert("not found");
         console.error("File not found.");
         return null;
     }
