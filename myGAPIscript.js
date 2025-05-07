@@ -45,6 +45,6 @@ async function searchImage() {
         const imageUrl = "https://drive.google.com/thumbnail?id=${fileId}&sz=w500" alt="Image with details">
         document.getElementById("driveImage").src = imageUrl;
     } else {
-        // alert("Image file not found.");
+        alert("Image file not found.");
     }
 }
