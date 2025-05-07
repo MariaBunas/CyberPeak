@@ -23,7 +23,7 @@ async function searchImage() {
         return;
     }
 
-    const fileId = await getFileId(fileName);
+    const fileId = await getFileId(fileName, "jpg");
     
     if (fileId) {
         const imageUrl = `https://drive.google.com/uc?export=view&id=${fileId}`;
