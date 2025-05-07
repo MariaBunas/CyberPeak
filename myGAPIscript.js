@@ -42,7 +42,7 @@ async function searchImage() {
     const fileId = await getFileId(fileName);
     if (fileId) {
         // const imageUrl = `https://drive.google.com/uc?export=view&id=${fileId}`;
-        const imageUrl = "https://drive.google.com/thumbnail?id=${fileId}&sz=w500" alt="Image with details">
+        const imageUrl = "https://drive.google.com/thumbnail?id=${fileId}&sz=w500";
         document.getElementById("driveImage").src = imageUrl;
     } else {
         alert("Image file not found.");
