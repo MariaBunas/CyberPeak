@@ -33,6 +33,7 @@ async function getFileId(fileName) {
                 index = i;
             }
         }
+    }
     if ( index > -1 ) {
          alert("found index " + index);
         return data.files[index].id; // Get first matching file ID
