@@ -28,6 +28,8 @@ href="https://unpkg.com/leaflet/dist/leaflet.css" />
 <h2>🗺️ Hartă Interactivă - Cyberpeak</h2> 
 <div id="map"></div> 
 
+<script src="myGAPIscript.js"></script>
+ 
 <script> 
 // icons : 
 const icons = { 
@@ -90,14 +92,19 @@ fetch('https://raw.githubusercontent.com/MariaBunas/Cyberpeak-Backend/refs/heads
                  const icon = icons[severity] || icons['ok']; 
                  const imageUrl = 'https://raw.githubusercontent.com/MariaBunas/Cyberpeak-Backend/main/uploads/' + row.image;
                  const image1Url = 'https://cyberpeak-server.onrender.com/image/' + row.image;
-                              
+              
                  if (!isNaN(lat) && !isNaN(lng)) {
+                     var gdriveImgUrl = "not found";
+                     const fileId = await getFileId(row.image);
+                     if (fileId) {
+                         gdriveImgUrl = "https://drive.google.com/thumbnail?id=" + fileId + "&sz=w200px";
+                     }
                      const marker = L.marker([lat, lng], { icon : icon}).addTo(map)
                          .bindPopup(`
                              <strong>${name}</strong><br>
                              Severitate: ${severity} <br>
-                             Imagine: ${image1Url} <br>                             
-                             <img src="${image1Url}" alt="Imagine locație" width="200px">
+                             Imagine: ${gdriveImgUrl} <br>                             
+                             <img src="${gdriveImgUrl}" alt="Imagine locație" width="200px">
                          `);
                  }
              });
@@ -120,7 +127,7 @@ fetch('https://raw.githubusercontent.com/MariaBunas/Cyberpeak-Backend/refs/heads
    <br><br>
   <img_none src="https://drive.google.com/uc?export=view&id=1u49KytXw5JuPgUp8boIqJYevJpzUp4Nd" alt="Google Drive Image" width="500">
    <img_none src="https://drive.google.com/thumbnail?id=1u49KytXw5JuPgUp8boIqJYevJpzUp4Nd&sz=w500" alt="Your Image Alt Text">
-    <script src="myGAPIscript.js"></script>
+    
  </div>
  
 <!-- Subsol gri cu buton Instagram și mesaj de drepturi de autor -->
