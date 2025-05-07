@@ -28,6 +28,6 @@ async function searchImage() {
         const imageUrl = `https://drive.google.com/uc?export=view&id=${fileId}`;
         document.getElementById("driveImage").src = imageUrl;
     } else {
-        alert("Image not found.");
+        alert("Image file not found.");
     }
 }
