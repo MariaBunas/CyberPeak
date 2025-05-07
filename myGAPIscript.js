@@ -53,7 +53,7 @@ async function searchImage() {
         return;
     }
 
-    const fileId = await getFileId(fileName, "jpg");
+    const fileId = await getFileId(fileName);
     alert("test");
     
     if (fileId) {
