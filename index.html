@@ -95,10 +95,10 @@ fetch('https://raw.githubusercontent.com/MariaBunas/Cyberpeak-Backend/refs/heads
               
                  if (!isNaN(lat) && !isNaN(lng)) {
                      var gdriveImgUrl = image1Url; //"not found";
-                     // const fileId = await getFileId(row.image);
-                     // if (fileId) {
-                     //     gdriveImgUrl = "https://drive.google.com/thumbnail?id=" + fileId + "&sz=w200px";
-                     // }
+                     const fileId = getFileId(row.image);
+                     if (fileId) {
+                         gdriveImgUrl = "https://drive.google.com/thumbnail?id=" + fileId + "&sz=w200px";
+                     }
                      const marker = L.marker([lat, lng], { icon : icon}).addTo(map)
                          .bindPopup(`
                              <strong>${name}</strong><br>
