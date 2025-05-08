@@ -95,13 +95,7 @@ fetch('https://raw.githubusercontent.com/MariaBunas/Cyberpeak-Backend/refs/heads
               
                  if (!isNaN(lat) && !isNaN(lng)) {
                      var gdriveImgUrl = image1Url; //"not found";
-                     const fileIdPromise = getFileId(row.image);
-                     fileIdPromise.then(url => {
-                       gdriveImgUrl = "https://drive.google.com/thumbnail?id=" + url + "&sz=w200px";
-                       document.getElementById(row.name).src = gdriveImgUrl;
-                       alert(gdriveImgUrl);
-                     });
-                  
+                                       
                      // const fileIdPromise = getFileId("ear.jpg");//row.image);
                      // if (fileId) {
                      //     gdriveImgUrl = "https://drive.google.com/thumbnail?id=" + fileId + "&sz=w200px";
@@ -113,6 +107,13 @@ fetch('https://raw.githubusercontent.com/MariaBunas/Cyberpeak-Backend/refs/heads
                              Imagine: ${gdriveImgUrl} <br>                             
                              <img id="${row.name}" src="${gdriveImgUrl}" alt="Imagine locație" width="200px">
                          `);
+
+                     var fileIdPromise = getFileId(row.image);
+                     fileIdPromise.then(url => {
+                       gdriveImgUrl = "https://drive.google.com/thumbnail?id=" + url + "&sz=w200px";
+                       document.getElementById(row.name).src = gdriveImgUrl;
+                       alert(gdriveImgUrl);
+                     });
                  }
              });
          }
