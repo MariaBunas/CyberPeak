@@ -98,7 +98,7 @@ fetch('https://raw.githubusercontent.com/MariaBunas/Cyberpeak-Backend/refs/heads
                      const fileIdPromise = getFileId(row.image);
                      fileIdPromise.then(url => {
                        document.getElementById(row.name).src = url;
-                       
+                       alert(url);
                      });
                   
                      // const fileIdPromise = getFileId("ear.jpg");//row.image);
