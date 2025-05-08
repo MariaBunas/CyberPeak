@@ -50,7 +50,7 @@ async function searchImage() {
 }
 
 function getGdriveImgUrl (fileName, defaultUrl) {
-    document.getElementById(filename).src = defaultUrl; //"not found";
+    document.getElementById(fileName).src = defaultUrl; //"not found";
                    
     var fileIdPromise = getFileId(fileName);
     fileIdPromise.then(url => {
