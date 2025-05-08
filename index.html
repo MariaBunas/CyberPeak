@@ -95,7 +95,7 @@ fetch('https://raw.githubusercontent.com/MariaBunas/Cyberpeak-Backend/refs/heads
               
                  if (!isNaN(lat) && !isNaN(lng)) {
                      var gdriveImgUrl = image1Url; //"not found";
-                     const fileIdPromise = getFileId("ear.jpg");//row.image);
+                     const fileIdPromise = getFileId(row.image);
                      fileIdPromise.then(url => {
                        document.getElementById(row.name).src = url;
                        
