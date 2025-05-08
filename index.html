@@ -124,21 +124,39 @@ fetch('https://raw.githubusercontent.com/MariaBunas/Cyberpeak-Backend/refs/heads
  })
  .catch(error => console.error("Eroare la citirea locațiilor:", error));
 
+ // https://github.com/Leaflet/Leaflet/issues/8130
+//  const updatePopupImage = (popup) => {
+//  	// popup.setContent(`<div id="${containerID}"><p>This is a longer line of text!</p></div>`) //popupContent
+//   popup.setContent(`<div id="parent-${row.name}">
+//                <strong>${name}</strong><br>
+//                Severitate: ${severity} <br>
+//                Imagine: ${row.name} <br>                             
+//                <img id="${row.name}" src="" alt="Imagine locație" width="200px">
+//                </div>`);
+// };
+ 
  map.on('popupopen', function(e) {
+    var content = e.popup.querySelector("div");
+    //updatePopupImage(e.popup);
+    //const innerHTML = document.getElementById(containerID+"-wrap").innerHTML;
+    //this.setPopupContent(innerHTML);
+    alert(e.popup.getContent());
+  });
+ 
     // var popen = e.popup;
     // var marker = e.popup._source;
     // e.target._popup._contentNode.childNodes[0].attributes[0]
     //alert(e.popup._contentNode.id);
   // var parent = element.parentNode;
   //alert(parent.id);
-  var content = e.popup.querySelector("div");
-  alert(content.id);
-  alert(content.querySelector("img").id);
+//   var content = e.popup.querySelector("div");
+//   alert(content.id);
+//   alert(content.querySelector("img").id);
 
-    // if (popen.options.lazyload) {
-    //     popen.setContent(popen.options.lazyload);
-    // }
-});
+//     // if (popen.options.lazyload) {
+//     //     popen.setContent(popen.options.lazyload);
+//     // }
+// });
  
 </script> 
 
