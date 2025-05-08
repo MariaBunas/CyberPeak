@@ -94,26 +94,28 @@ fetch('https://raw.githubusercontent.com/MariaBunas/Cyberpeak-Backend/refs/heads
                  const image1Url = 'https://cyberpeak-server.onrender.com/image/' + row.image;
               
                  if (!isNaN(lat) && !isNaN(lng)) {
-                     var gdriveImgUrl = image1Url; //"not found";
+                     // var gdriveImgUrl = image1Url; //"not found";
                                        
-                     // const fileIdPromise = getFileId("ear.jpg");//row.image);
-                     // if (fileId) {
-                     //     gdriveImgUrl = "https://drive.google.com/thumbnail?id=" + fileId + "&sz=w200px";
-                     // }
                      const marker = L.marker([lat, lng], { icon : icon}).addTo(map)
-                         .bindPopup(`
+                         .bindPopup(`<div class="poupup_parent">
                              <strong>${name}</strong><br>
                              Severitate: ${severity} <br>
                              Imagine: ${gdriveImgUrl} <br>                             
-                             <img id="${row.name}" src="${gdriveImgUrl}" alt="Imagine locație" width="200px">
+                             <img id="${row.name}" src="${getGdriveImgUrl(row.name)}" alt="Imagine locație" width="200px">
+                             </div>
                          `);
-
-                     var fileIdPromise = getFileId(row.image);
-                     fileIdPromise.then(url => {
-                       gdriveImgUrl = "https://drive.google.com/thumbnail?id=" + url + "&sz=w200px";
-                       document.getElementById(row.name).src = gdriveImgUrl;
-                       alert(gdriveImgUrl);
-                     });
+                  
+                     // const fileId = getFileId("ear.jpg");//row.image);
+                     // if (fileId) {
+                     //     gdriveImgUrl = "https://drive.google.com/thumbnail?id=" + fileId + "&sz=w200px";
+                     // }
+                  
+                     // var fileIdPromise = getFileId(row.image);
+                     // fileIdPromise.then(url => {
+                     //   gdriveImgUrl = "https://drive.google.com/thumbnail?id=" + url + "&sz=w200px";
+                     //   document.getElementById(row.name).src = gdriveImgUrl;
+                     //   alert(gdriveImgUrl);
+                     // });
                  }
              });
          }
