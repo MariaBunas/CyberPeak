@@ -96,7 +96,7 @@ fetch('https://raw.githubusercontent.com/MariaBunas/Cyberpeak-Backend/refs/heads
                  if (!isNaN(lat) && !isNaN(lng)) {
                      // var gdriveImgUrl = image1Url; //"not found";
                                        
-                     const marker = L.marker([lat, lng], { icon : icon}).addTo(map)
+                     var marker = L.marker([lat, lng], { icon : icon}).addTo(map)
                          .bindPopup(`<div id="parent-${row.name}">
                              <strong>${name}</strong><br>
                              Severitate: ${severity} <br>
@@ -104,6 +104,8 @@ fetch('https://raw.githubusercontent.com/MariaBunas/Cyberpeak-Backend/refs/heads
                              <img id="${row.name}" src="" alt="Imagine locație" width="200px">
                              </div>
                          `);
+                    marker._myID = row.name;
+                  
                   // "${getGdriveImgUrl(row.name, image1Url)}"
                   
                      // const fileId = getFileId("ear.jpg");//row.image);
@@ -141,7 +143,7 @@ fetch('https://raw.githubusercontent.com/MariaBunas/Cyberpeak-Backend/refs/heads
     //const innerHTML = document.getElementById(containerID+"-wrap").innerHTML;
     //this.setPopupContent(innerHTML);
     alert(e.popup.getContent());
-  alert(e.target);
+  alert(e.target._myID);
     //alert(e.popup.getContentElement().innerHTML);
   });
  
