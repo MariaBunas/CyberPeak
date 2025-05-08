@@ -100,7 +100,7 @@ fetch('https://raw.githubusercontent.com/MariaBunas/Cyberpeak-Backend/refs/heads
                          .bindPopup(`<div id="parent-${row.name}">
                              <strong>${name}</strong><br>
                              Severitate: ${severity} <br>
-                             Imagine: ${gdriveImgUrl} <br>                             
+                             Imagine: ${row.name} <br>                             
                              <img id="${row.name}" src="${getGdriveImgUrl(row.name, image1Url)}" alt="Imagine locație" width="200px">
                              </div>
                          `);
