@@ -147,7 +147,7 @@ fetch('https://raw.githubusercontent.com/MariaBunas/Cyberpeak-Backend/refs/heads
    var htmlContent = e.popup.getContent()
    const parser = new DOMParser();
    const htmlDoc = parser.parseFromString(htmlContent, 'text/xml');
-   alert(htmlDoc.getElementsByTagName("div").id);
+   alert(htmlDoc.getElementsByTagName("div")[0].id);
 // do whatever you want with htmlDoc.getElementsByTagName('a');
     //alert(e.popup.getContentElement().innerHTML);
   });
