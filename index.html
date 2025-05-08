@@ -101,9 +101,10 @@ fetch('https://raw.githubusercontent.com/MariaBunas/Cyberpeak-Backend/refs/heads
                              <strong>${name}</strong><br>
                              Severitate: ${severity} <br>
                              Imagine: ${row.name} <br>                             
-                             <img id="${row.name}" src="${getGdriveImgUrl(row.name, image1Url)}" alt="Imagine locație" width="200px">
+                             <img id="${row.name}" src="" alt="Imagine locație" width="200px">
                              </div>
                          `);
+                  // "${getGdriveImgUrl(row.name, image1Url)}"
                   
                      // const fileId = getFileId("ear.jpg");//row.image);
                      // if (fileId) {
@@ -122,6 +123,22 @@ fetch('https://raw.githubusercontent.com/MariaBunas/Cyberpeak-Backend/refs/heads
      });
  })
  .catch(error => console.error("Eroare la citirea locațiilor:", error));
+
+ map.on('popupopen', function(e) {
+    // var popen = e.popup;
+    // var marker = e.popup._source;
+    // e.target._popup._contentNode.childNodes[0].attributes[0]
+    //alert(e.popup._contentNode.id);
+  // var parent = element.parentNode;
+  //alert(parent.id);
+  var content = e.popup.querySelector("div");
+  alert(content.id);
+  alert(content.querySelector("img").id);
+
+    // if (popen.options.lazyload) {
+    //     popen.setContent(popen.options.lazyload);
+    // }
+});
  
 </script> 
 
