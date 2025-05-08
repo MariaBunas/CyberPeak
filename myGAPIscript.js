@@ -31,8 +31,6 @@ async function getFileId(fileName) {
     }
 }
 
-
-
 async function searchImage() {
     const fileName = document.getElementById("fileName").value;
     
@@ -49,4 +47,18 @@ async function searchImage() {
     } else {
         alert("Image file not found.");
     }
+}
+
+function getGdriveImgUrl (fileName, defaultUrl) {
+    document.getElementById(filename).src = defaultUrl; //"not found";
+                   
+    var fileIdPromise = getFileId(fileName);
+    fileIdPromise.then(url => {
+        gdriveImgUrl = "https://drive.google.com/thumbnail?id=" + url + "&sz=w200px";
+        document.getElementById(filename).src = gdriveImgUrl;
+        document.getElementById("parent-" + filename).style.display = "block";
+        alert(gdriveImgUrl);
+    });
+
+    return gdriveImgUrl;
 }
