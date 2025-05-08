@@ -142,8 +142,13 @@ fetch('https://raw.githubusercontent.com/MariaBunas/Cyberpeak-Backend/refs/heads
     //updatePopupImage(e.popup);
     //const innerHTML = document.getElementById(containerID+"-wrap").innerHTML;
     //this.setPopupContent(innerHTML);
-    alert(e.popup.getContent());
-  alert(e.target._myID);
+  //   alert(e.popup.getContent());
+  // alert(e.target._myID); 
+   var htmlContent = e.popup.getContent()
+   const parser = new DOMParser();
+   const htmlDoc = parser.parseFromString(htmlContent, 'text/xml');
+   alert(htmlDoc.getElementsByTagName('img'));;
+// do whatever you want with htmlDoc.getElementsByTagName('a');
     //alert(e.popup.getContentElement().innerHTML);
   });
  
