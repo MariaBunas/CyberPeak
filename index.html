@@ -97,11 +97,11 @@ fetch('https://raw.githubusercontent.com/MariaBunas/Cyberpeak-Backend/refs/heads
                      // var gdriveImgUrl = image1Url; //"not found";
                                        
                      const marker = L.marker([lat, lng], { icon : icon}).addTo(map)
-                         .bindPopup(`<div class="poupup_parent">
+                         .bindPopup(`<div id="parent-${row.name}">
                              <strong>${name}</strong><br>
                              Severitate: ${severity} <br>
                              Imagine: ${gdriveImgUrl} <br>                             
-                             <img id="${row.name}" src="${getGdriveImgUrl(row.name)}" alt="Imagine locație" width="200px">
+                             <img id="${row.name}" src="${getGdriveImgUrl(row.name, image1Url)}" alt="Imagine locație" width="200px">
                              </div>
                          `);
                   
