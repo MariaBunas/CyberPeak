@@ -116,7 +116,7 @@ fetch('https://raw.githubusercontent.com/MariaBunas/Cyberpeak-Backend/refs/heads
    var htmlContent = e.popup.getContent();
    const parser = new DOMParser();
    const htmlDoc = parser.parseFromString(htmlContent, 'text/xml');
-  const divElement = htmlDocu.getElementsByTagName("div")[0];
+  const divElement = htmlDoc.getElementsByTagName("div")[0];
   
   if(!divElement.ready) { // lazy image upload not yet done
    const imageElement = htmlDoc.getElementsByTagName("img")[0];
