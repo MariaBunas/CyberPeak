@@ -116,11 +116,12 @@ fetch('https://raw.githubusercontent.com/MariaBunas/Cyberpeak-Backend/refs/heads
    var htmlContent = e.popup.getContent();
    const parser = new DOMParser();
    const htmlDoc = parser.parseFromString(htmlContent, 'text/xml');
+  const divElement = htmlDocu.getElementsByTagName("div")[0];
+  
+  if(!divElement.ready) { // lazy image upload not yet done
    const imageElement = htmlDoc.getElementsByTagName("img")[0];
-   
-
-  var fileIdPromise = getFileId(imageElement.id, e.popup);
-  fileIdPromise.then(([url, element]) => {
+   var fileIdPromise = getFileId(imageElement.id, e.popup);
+   fileIdPromise.then(([url, element]) => {
 
    // See https://github.com/Leaflet/Leaflet/issues/8130 for updating popup content via setContent!!!
    
@@ -131,7 +132,7 @@ fetch('https://raw.githubusercontent.com/MariaBunas/Cyberpeak-Backend/refs/heads
      const divElement = htmlDocu.getElementsByTagName("div")[0];
    
      imageElement.src = "https://drive.google.com/thumbnail?id=" + url + "&sz=w200px";
-     const newInnerHTML = `<div id="${divElement.id} idN="${divElement.idN}" idNN="${divElement.idNN}" idS="${divElement.idS} style="display: block" >   
+     const newInnerHTML = `<div ready="ok" id="${divElement.id} idN="${divElement.idN}" idNN="${divElement.idNN}" idS="${divElement.idS} style="display: block" >   
                              <strong>${divElement.idNN}</strong><br>
                              Severitate: ${divElement.idS} <br>
                              Imagine: ${imageElement.id} <br>  
@@ -139,6 +140,7 @@ fetch('https://raw.githubusercontent.com/MariaBunas/Cyberpeak-Backend/refs/heads
                              </div>`;
     element.setContent(newInnerHTML);
    });
+  } // if ready block
  });               
   
  
