@@ -133,7 +133,7 @@ fetch('https://raw.githubusercontent.com/MariaBunas/Cyberpeak-Backend/refs/heads
    const imageElement = htmlDoc.getElementsByTagName("img")[0];
    const divElement = htmlDoc.getElementsByTagName("div")[0];
 
-  var fileIdPromise = await getFileId(imageElement.id);
+  var fileIdPromise = getFileId(imageElement.id);
   alert(fileIdPromise);
   const url = fileIdPromise; 
    
