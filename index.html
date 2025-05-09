@@ -119,7 +119,7 @@ fetch('https://raw.githubusercontent.com/MariaBunas/Cyberpeak-Backend/refs/heads
   const divElement = htmlDoc.getElementsByTagName("div")[0];
   
   if(!divElement.ready) { // lazy image upload not yet done
-   const imageElement = htmlDoc.getElementsByTagName("img")[0];
+   var imageElement = htmlDoc.getElementsByTagName("img")[0];
    var fileIdPromise = getFileId(imageElement.id, e.popup);
    fileIdPromise.then(([url, element]) => {
 
@@ -128,11 +128,11 @@ fetch('https://raw.githubusercontent.com/MariaBunas/Cyberpeak-Backend/refs/heads
      var htmlContnt = element.getContent();
      const domParser = new DOMParser();
      const htmlDocu = domParser.parseFromString(htmlContnt, 'text/xml');
-     const imageElement = htmlDocu.getElementsByTagName("img")[0];
+     var imageElement = htmlDocu.getElementsByTagName("img")[0];
      const divElement = htmlDocu.getElementsByTagName("div")[0];
    
      imageElement.src = "https://drive.google.com/thumbnail?id=" + url + "&sz=w200px";
-     const newInnerHTML = `<div ready="ok" id="${divElement.id} idN="${divElement.idN}" idS="${divElement.idS} style="display: block" >   
+     const newInnerHTML = `<div ready="ok" id="${divElement.id}" idN="${divElement.idN}" idS="${divElement.idS}" style="display: block" >   
                              <strong>${divElement.idNN}</strong><br>
                              Severitate: ${divElement.idS} <br>
                              Imagine: ${imageElement.id} <br>  
