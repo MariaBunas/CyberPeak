@@ -97,15 +97,14 @@ fetch('https://raw.githubusercontent.com/MariaBunas/Cyberpeak-Backend/refs/heads
                      // var gdriveImgUrl = image1Url; //"not found";
                                        
                      var marker = L.marker([lat, lng], { icon : icon}).addTo(map)
-                         .bindPopup(`<div id="parent-${row.name}">
+                         .bindPopup(`<div id="${row.name}">
                              <strong>${name}</strong><br>
                              Severitate: ${severity} <br>
-                             Imagine: ${row.name} <br>                             
-                             <img id="${row.name}" src="" alt="Imagine locație" width="200px">
+                             Imagine: ${row.image} <br>                             
+                             <img id="${row.image}" src="" alt="Imagine locație" width="200px">
                              </div>
                          `);
-                    marker._myID = row.name;
-                  
+                                      
                   // "${getGdriveImgUrl(row.name, image1Url)}"
                   
                      // const fileId = getFileId("ear.jpg");//row.image);
@@ -126,8 +125,19 @@ fetch('https://raw.githubusercontent.com/MariaBunas/Cyberpeak-Backend/refs/heads
  })
  .catch(error => console.error("Eroare la citirea locațiilor:", error));
 
- // https://github.com/Leaflet/Leaflet/issues/8130
-//  const updatePopupImage = (popup) => {
+ map.on('popupopen', function(e) {
+     
+   var htmlContent = e.popup.getContent();
+   const parser = new DOMParser();
+   const htmlDoc = parser.parseFromString(htmlContent, 'text/xml');
+   const imageElement = htmlDoc.getElementsByTagName("img")[0]);
+   var fileIdPromise = getFileId(imageElement.id);
+   fileIdPromise.then(url => {
+     imageElement.src = "https://drive.google.com/thumbnail?id=" + url + "&sz=w200px";
+   });
+  // https://github.com/Leaflet/Leaflet/issues/8130
+});
+ 
 //  	// popup.setContent(`<div id="${containerID}"><p>This is a longer line of text!</p></div>`) //popupContent
 //   popup.setContent(`<div id="parent-${row.name}">
 //                <strong>${name}</strong><br>
@@ -135,37 +145,11 @@ fetch('https://raw.githubusercontent.com/MariaBunas/Cyberpeak-Backend/refs/heads
 //                Imagine: ${row.name} <br>                             
 //                <img id="${row.name}" src="" alt="Imagine locație" width="200px">
 //                </div>`);
-// };
- 
- map.on('popupopen', function(e) {
-    //var content = e.popup.querySelector("div");
-    //updatePopupImage(e.popup);
-    //const innerHTML = document.getElementById(containerID+"-wrap").innerHTML;
-    //this.setPopupContent(innerHTML);
+  
+  // const innerHTML = document.getElementById(containerID+"-wrap").innerHTML;
+  //   this.setPopupContent(innerHTML);
   //   alert(e.popup.getContent());
-  // alert(e.target._myID); 
-   var htmlContent = e.popup.getContent()
-   const parser = new DOMParser();
-   const htmlDoc = parser.parseFromString(htmlContent, 'text/xml');
-   alert(htmlDoc.getElementsByTagName("img")[0].id);
-// do whatever you want with htmlDoc.getElementsByTagName('a');
-    //alert(e.popup.getContentElement().innerHTML);
-  });
- 
-    // var popen = e.popup;
-    // var marker = e.popup._source;
-    // e.target._popup._contentNode.childNodes[0].attributes[0]
-    //alert(e.popup._contentNode.id);
-  // var parent = element.parentNode;
-  //alert(parent.id);
-//   var content = e.popup.querySelector("div");
-//   alert(content.id);
-//   alert(content.querySelector("img").id);
 
-//     // if (popen.options.lazyload) {
-//     //     popen.setContent(popen.options.lazyload);
-//     // }
-// });
  
 </script> 
 
