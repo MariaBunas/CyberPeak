@@ -132,18 +132,33 @@ fetch('https://raw.githubusercontent.com/MariaBunas/Cyberpeak-Backend/refs/heads
    const htmlDoc = parser.parseFromString(htmlContent, 'text/xml');
    const imageElement = htmlDoc.getElementsByTagName("img")[0];
    const divElement = htmlDoc.getElementsByTagName("div")[0];
-   var fileIdPromise = getFileId(imageElement.id);
-   await fileIdPromise.then(url => {
+
+  var fileIdPromise = await getFileId(imageElement.id);
+  alert(fileIdPromise);
+  const url = fileIdPromise; 
+   
      imageElement.src = "https://drive.google.com/thumbnail?id=" + url + "&sz=w200px";
      divElement.style.display = "block";
      alert(imageElement.src);
      const newInnerHTML = `<div id="${divElement.id} style="display: block">                                                          
                              <img id="${imageElement.id}" src="${imageElement.src}" alt="Imagine locație" width="200px">
-                             </div>
-                         `;
+                             </div>`;
     //this.setPopupContent(innerHTML);
     e.popup.setContent(innerHTML);
-   });
+   }
+                      
+   // var fileIdPromise = getFileId(imageElement.id);
+   // fileIdPromise.then(url => {
+   //   imageElement.src = "https://drive.google.com/thumbnail?id=" + url + "&sz=w200px";
+   //   divElement.style.display = "block";
+   //   alert(imageElement.src);
+   //   const newInnerHTML = `<div id="${divElement.id} style="display: block">                                                          
+   //                           <img id="${imageElement.id}" src="${imageElement.src}" alt="Imagine locație" width="200px">
+   //                           </div>
+   //                       `;
+   //  //this.setPopupContent(innerHTML);
+   //  e.popup.setContent(innerHTML);
+   // });
 });
   // https://github.com/Leaflet/Leaflet/issues/8130
 
