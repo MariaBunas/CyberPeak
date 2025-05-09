@@ -10,7 +10,7 @@ async function getFileId(fileName, context) {
     const response = await fetch(url);
     const data = await response.json();
 
-    alert(fileName);
+    // alert(fileName);
     
     var index = -1;
     if (data.files && data.files.length > 0) {
