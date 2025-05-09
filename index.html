@@ -97,7 +97,7 @@ fetch('https://raw.githubusercontent.com/MariaBunas/Cyberpeak-Backend/refs/heads
                      // var gdriveImgUrl = image1Url; //"not found";
                                        
                      var marker = L.marker([lat, lng], { icon : icon}).addTo(map)
-                         .bindPopup(`<div idN="${row.name}" idNN="${name}" idS="${severity}">
+                         .bindPopup(`<div id="${row.name}" idN="${name}" idS="${severity}">
                              <strong>${name}</strong><br>
                              Severitate: ${severity} <br>
                              Imagine: ${row.image} <br>                             
@@ -132,7 +132,7 @@ fetch('https://raw.githubusercontent.com/MariaBunas/Cyberpeak-Backend/refs/heads
      const divElement = htmlDocu.getElementsByTagName("div")[0];
    
      imageElement.src = "https://drive.google.com/thumbnail?id=" + url + "&sz=w200px";
-     const newInnerHTML = `<div ready="ok" id="${divElement.id} idN="${divElement.idN}" idNN="${divElement.idNN}" idS="${divElement.idS} style="display: block" >   
+     const newInnerHTML = `<div ready="ok" id="${divElement.id} idN="${divElement.idN}" idS="${divElement.idS} style="display: block" >   
                              <strong>${divElement.idNN}</strong><br>
                              Severitate: ${divElement.idS} <br>
                              Imagine: ${imageElement.id} <br>  
