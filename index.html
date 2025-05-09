@@ -97,28 +97,14 @@ fetch('https://raw.githubusercontent.com/MariaBunas/Cyberpeak-Backend/refs/heads
                      // var gdriveImgUrl = image1Url; //"not found";
                                        
                      var marker = L.marker([lat, lng], { icon : icon}).addTo(map)
-                         .bindPopup(`<div id="${row.name}">
+                         .bindPopup(`<div idN="${row.name}" idNN="${name}" idS="${severity}">
                              <strong>${name}</strong><br>
                              Severitate: ${severity} <br>
                              Imagine: ${row.image} <br>                             
                              <img id="${row.image}" src="" alt="Imagine locație" width="200px">
                              </div>
                          `);
-                                      
-                  // "${getGdriveImgUrl(row.name, image1Url)}"
-                  
-                     // const fileId = getFileId("ear.jpg");//row.image);
-                     // if (fileId) {
-                     //     gdriveImgUrl = "https://drive.google.com/thumbnail?id=" + fileId + "&sz=w200px";
-                     // }
-                  
-                     // var fileIdPromise = getFileId(row.image);
-                     // fileIdPromise.then(url => {
-                     //   gdriveImgUrl = "https://drive.google.com/thumbnail?id=" + url + "&sz=w200px";
-                     //   document.getElementById(row.name).src = gdriveImgUrl;
-                     //   alert(gdriveImgUrl);
-                     // });
-                 }
+                  }
              });
          }
      });
@@ -131,55 +117,30 @@ fetch('https://raw.githubusercontent.com/MariaBunas/Cyberpeak-Backend/refs/heads
    const parser = new DOMParser();
    const htmlDoc = parser.parseFromString(htmlContent, 'text/xml');
    const imageElement = htmlDoc.getElementsByTagName("img")[0];
-   const divElement = htmlDoc.getElementsByTagName("div")[0];
+   
 
   var fileIdPromise = getFileId(imageElement.id, e.popup);
   fileIdPromise.then(([url, element]) => {
-   //alert("Test! " + element.getContent());
-   //alert("Gata! " +  "https://drive.google.com/thumbnail?id=" + url + "&sz=w200px");
-  //});
-  
-  // alert("New file: " + fileIdPromise);
-  // const url = fileIdPromise; 
+
+   // See https://github.com/Leaflet/Leaflet/issues/8130 for updating popup content via setContent!!!
+   
+     var htmlContnt = e.getContent();
+     const domParser = new DOMParser();
+     const htmlDocu = domParser.parseFromString(htmlContnt, 'text/xml');
+     const imageElement = htmlDocu.getElementsByTagName("img")[0];
+     const divElement = htmlDocu.getElementsByTagName("div")[0];
    
      imageElement.src = "https://drive.google.com/thumbnail?id=" + url + "&sz=w200px";
-     //divElement.style.display = "block";
-     //alert(imageElement.src);
-     const newInnerHTML = `<div id="${divElement.id} style="display: block">                                                          
+     const newInnerHTML = `<div id="${divElement.id} idN="${divElement.idN}" idNN="${divElement.idNN}" idS="${divElement.idS} style="display: block" >   
+                             <strong>${divElement.idNN}</strong><br>
+                             Severitate: ${divElement.idS} <br>
+                             Imagine: ${imageElement.id} <br>  
                              <img id="${imageElement.id}" src="${imageElement.src}" alt="Imagine locație" width="200px">
                              </div>`;
-    //this.setPopupContent(innerHTML);
     element.setContent(newInnerHTML);
    });
  });               
-   // var fileIdPromise = getFileId(imageElement.id);
-   // fileIdPromise.then(url => {
-   //   imageElement.src = "https://drive.google.com/thumbnail?id=" + url + "&sz=w200px";
-   //   divElement.style.display = "block";
-   //   alert(imageElement.src);
-   //   const newInnerHTML = `<div id="${divElement.id} style="display: block">                                                          
-   //                           <img id="${imageElement.id}" src="${imageElement.src}" alt="Imagine locație" width="200px">
-   //                           </div>
-   //                       `;
-   //  //this.setPopupContent(innerHTML);
-   //  e.popup.setContent(innerHTML);
-   // });
-//});
-  // https://github.com/Leaflet/Leaflet/issues/8130
-
- 
-//  	// popup.setContent(`<div id="${containerID}"><p>This is a longer line of text!</p></div>`) //popupContent
-//   popup.setContent(`<div id="parent-${row.name}">
-//                <strong>${name}</strong><br>
-//                Severitate: ${severity} <br>
-//                Imagine: ${row.name} <br>                             
-//                <img id="${row.name}" src="" alt="Imagine locație" width="200px">
-//                </div>`);
   
-  // const innerHTML = document.getElementById(containerID+"-wrap").innerHTML;
-  //   this.setPopupContent(innerHTML);
-  //   alert(e.popup.getContent());
-
  
 </script> 
 
