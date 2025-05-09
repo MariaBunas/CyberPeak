@@ -124,7 +124,7 @@ fetch('https://raw.githubusercontent.com/MariaBunas/Cyberpeak-Backend/refs/heads
 
    // See https://github.com/Leaflet/Leaflet/issues/8130 for updating popup content via setContent!!!
    
-     var htmlContnt = e.getContent();
+     var htmlContnt = element.getContent();
      const domParser = new DOMParser();
      const htmlDocu = domParser.parseFromString(htmlContnt, 'text/xml');
      const imageElement = htmlDocu.getElementsByTagName("img")[0];
