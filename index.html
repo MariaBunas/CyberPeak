@@ -133,9 +133,9 @@ fetch('https://raw.githubusercontent.com/MariaBunas/Cyberpeak-Backend/refs/heads
    const imageElement = htmlDoc.getElementsByTagName("img")[0];
    const divElement = htmlDoc.getElementsByTagName("div")[0];
 
-  var fileIdPromise = getFileId(imageElement.id);
-  fileIdPromise.bind(e.popup).then(url => {
-   alert("Test! " + this.getContent());
+  var fileIdPromise = getFileId(imageElement.id, e.popup);
+  fileIdPromise.then((url, element) => {
+   alert("Test! " + element.getContent());
    alert("Gata! " +  "https://drive.google.com/thumbnail?id=" + url + "&sz=w200px");
   });
   
