@@ -1,6 +1,6 @@
 const API_KEY = "AIzaSyBE4jeVMYnAio8DgHU8EudkIJyA_M3odFU"; // Replace with your actual API key
 
-async function getFileId(fileName) {
+async function getFileId(fileName, context) {
     // const url = `https://www.googleapis.com/drive/v3/files?q=name='${fileName}' and trashed=false&key=${API_KEY}&fields=files(id,name)`;
     // const url = `https://www.googleapis.com/drive/v3/files?q=title='${fileName}' and fileExtension='${extension}' and trashed=false&key=${API_KEY}&fields=files(id,name)`;
     //title="File_1.xml" and fileExtension="xml"
@@ -23,37 +23,37 @@ async function getFileId(fileName) {
     }
     if ( index > -1 ) {
         // alert("found index " + index);
-        return data.files[index].id; // Get first matching file ID
+        return [data.files[index].id, context]; // Get first matching file ID
     } else {
         // alert("not found");
         console.error("File not found.");
-        return null;
+        return [null, context];
     }
 }
 
-async function searchImage() {
-    const fileName = document.getElementById("fileName").value;
+// async function searchImage() {
+//     const fileName = document.getElementById("fileName").value;
     
-    if (!fileName) {
-        alert("Please enter a file name.");
-        return;
-    }
+//     if (!fileName) {
+//         alert("Please enter a file name.");
+//         return;
+//     }
 
-    const fileId = await getFileId(fileName);
-    if (fileId) {
-        // const imageUrl = `https://drive.google.com/uc?export=view&id=${fileId}`;
-        const imageUrl = "https://drive.google.com/thumbnail?id=" + fileId + "&sz=w500";
-        document.getElementById("driveImage").src = imageUrl;
-    } else {
-        alert("Image file not found.");
-    }
-}
+//     const fileId = await getFileId(fileName);
+//     if (fileId) {
+//         // const imageUrl = `https://drive.google.com/uc?export=view&id=${fileId}`;
+//         const imageUrl = "https://drive.google.com/thumbnail?id=" + fileId + "&sz=w500";
+//         document.getElementById("driveImage").src = imageUrl;
+//     } else {
+//         alert("Image file not found.");
+//     }
+// }
 
 function getGdriveImgUrl (fileName, defaultUrl) {
     document.getElementById(fileName).src = defaultUrl; //"not found";
                    
-    var fileIdPromise = getFileId(fileName);
-    fileIdPromise.then(url => {
+    var fileIdPromise = getFileId(fileName, null);
+    fileIdPromise.then((url, nothing) => {
         gdriveImgUrl = "https://drive.google.com/thumbnail?id=" + url + "&sz=w200px";
         document.getElementById(filename).src = gdriveImgUrl;
         document.getElementById("parent-" + filename).style.display = "block";
