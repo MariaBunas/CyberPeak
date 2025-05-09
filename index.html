@@ -118,7 +118,7 @@ fetch('https://raw.githubusercontent.com/MariaBunas/Cyberpeak-Backend/refs/heads
    const htmlDoc = parser.parseFromString(htmlContent, 'text/xml');
   const divElement = htmlDoc.getElementsByTagName("div")[0];
   
-  if(!divElement.ready) { // lazy image upload not yet done
+  if(0) { //!divElement.ready) { // lazy image upload not yet done
    var imageElement = htmlDoc.getElementsByTagName("img")[0];
    var fileIdPromise = getFileId(imageElement.id, e.popup);
    fileIdPromise.then(([url, element]) => {
