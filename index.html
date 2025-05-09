@@ -130,8 +130,8 @@ fetch('https://raw.githubusercontent.com/MariaBunas/Cyberpeak-Backend/refs/heads
    var htmlContent = e.popup.getContent();
    const parser = new DOMParser();
    const htmlDoc = parser.parseFromString(htmlContent, 'text/xml');
-   const imageElement = htmlDoc.getElementsByTagName("img")[0]);
-   const divElement = htmlDoc.getElementsByTagName("div")[0]);
+   const imageElement = htmlDoc.getElementsByTagName("img")[0];
+   const divElement = htmlDoc.getElementsByTagName("div")[0];
    var fileIdPromise = getFileId(imageElement.id);
    fileIdPromise.then(url => {
      imageElement.src = "https://drive.google.com/thumbnail?id=" + url + "&sz=w200px";
