@@ -122,9 +122,10 @@ fetch('https://raw.githubusercontent.com/MariaBunas/Cyberpeak-Backend/refs/heads
     var imageElement = htmlDoc.getElementsByTagName("img")[0];
     const popupContext = {id:divElement.id, Nid:divElement.Nid, Sid:divElement.Sid, imgId:imageElement.id};
     //var fileIdPromise = getFileId(imageElement.id, e.popup);
-    var fileIdPromise = getFileId(imageElement.id, popupContext);
+    //var fileIdPromise = getFileId(imageElement.id, popupContext);
+    var fileIdPromise = getFileId(imageElement.id, e.popup, popupContext);
     
-    fileIdPromise.then(([url, element]) => {
+    fileIdPromise.then(([url, popupElement, elements]) => {
  
     // See https://github.com/Leaflet/Leaflet/issues/8130 for updating popup content via setContent!!!
     
@@ -150,13 +151,13 @@ fetch('https://raw.githubusercontent.com/MariaBunas/Cyberpeak-Backend/refs/heads
     
       const imageElementSrc = "https://drive.google.com/thumbnail?id=" + url + "&sz=w200px";
       // const imageElement.src = "https://drive.google.com/thumbnail?id=" + url + "&sz=w200px";
-      const newInnerHTML = `<div id="${element.id}" Nid="${element.Nid}" Sid="${element.Sid}" ready="ok" style="display: block" >   
-                              <strong>${element.Nid}</strong><br>
-                              Severitate: ${element.Sid} <br>
-                              Imagine: ${element.imgId} <br>  
-                              <img id="${element.imgId}" src="${imageElementSrc}" alt="Imagine locație" width="200px">
+      const newInnerHTML = `<div id="${elements.id}" Nid="${elements.Nid}" Sid="${elements.Sid}" ready="ok" style="display: block" >   
+                              <strong>${elements.Nid}</strong><br>
+                              Severitate: ${elements.Sid} <br>
+                              Imagine: ${elements.imgId} <br>  
+                              <img id="${elements.imgId}" src="${imageElementSrc}" alt="Imagine locație" width="200px">
                               </div>`;
-     element.setContent(newInnerHTML);
+     popupElement.setContent(newInnerHTML);
     });
   } // if ready block
  });               
