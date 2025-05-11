@@ -168,9 +168,11 @@ fetch('https://raw.githubusercontent.com/MariaBunas/Cyberpeak-Backend/refs/heads
     
       imageElement.Src = "https://drive.google.com/thumbnail?id=" + url + "&sz=w200px";
       // const imageElement.src = "https://drive.google.com/thumbnail?id=" + url + "&sz=w200px";
-      const newInnerHTML = `<div id="${divElement.id}" data-Nid="${divElement.getAttribute("data-Nid")}" data-Sid="${divElement.getAttribute("data-Sid")}" data-ready="ok" style="display: block" >   
-                              <strong>${divElement.Nid}</strong><br>
-                              Severitate: ${divElement.Sid} <br>
+      const Nid = divElement.getAttribute("data-Nid");
+      const Sid = divElement.getAttribute("data-Sid");
+      const newInnerHTML = `<div id="${divElement.id}" data-Nid="${Nid}" data-Sid="${Sid}" data-ready="ok" style="display: block" >   
+                              <strong>${Nid}</strong><br>
+                              Severitate: ${Sid} <br>
                               Imagine: ${imageElement.id} <br>  
                               <img id="${imageElement.id}" src="${imageElement.Src}" alt="Imagine locație" width="200px">
                               </div>`;
