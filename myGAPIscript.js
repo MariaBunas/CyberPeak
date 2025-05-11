@@ -22,7 +22,7 @@ async function getFileId(fileName, context) {
         await readFileList_GAPI();
     } 
 
-    const result = listOfFiles[fileName];
+    const result = listOfFiles.get(fileName);
     return [result, context];
 }
 
