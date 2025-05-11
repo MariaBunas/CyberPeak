@@ -40,9 +40,9 @@ function getLocationsCsvFileId() {
     // });
     // return locationsCsvFileId;
     
-    var fileIdPromise = getFileId("locations.csv", null);
-    var locationsCsvFileId = null;
-    return locationsCsvFileId;
+    return getFileId("locations.csv", null);
+    //var locationsCsvFileId = null;
+    //return locationsCsvFileId;
 }
 
 // async function searchImage() {
