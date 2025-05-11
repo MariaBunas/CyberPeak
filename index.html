@@ -120,7 +120,7 @@ fetch('https://raw.githubusercontent.com/MariaBunas/Cyberpeak-Backend/refs/heads
   
   if(!divElement.ready) { // lazy image upload not yet done
     var imageElement = htmlDoc.getElementsByTagName("img")[0];
-    const popupContext = {id:divElement.id, Nid:divElement.Nid, Sid:divElement.Sid};
+    const popupContext = {id:divElement.id, Nid:divElement.Nid, Sid:divElement.Sid, imgId:{imageElement.id};
     //var fileIdPromise = getFileId(imageElement.id, e.popup);
     var fileIdPromise = getFileId(imageElement.id, popupContext);
     
@@ -142,18 +142,18 @@ fetch('https://raw.githubusercontent.com/MariaBunas/Cyberpeak-Backend/refs/heads
      //                          <img id="${imageElement.id}" src="${imageElement.src}" alt="Imagine locație" width="200px">
      //                          </div>`;
      // element.setContent(newInnerHTML);
-      var htmlContnt = element.getContent();
-      const domParser = new DOMParser();
-      const htmlDocu = domParser.parseFromString(htmlContnt, 'text/xml');
-      var imageElement = htmlDocu.getElementsByTagName("img")[0];
+      //var htmlContnt = element.getContent();
+      //const domParser = new DOMParser();
+      //const htmlDocu = domParser.parseFromString(htmlContnt, 'text/xml');
+      //var imageElement = htmlDocu.getElementsByTagName("img")[0];
       // const divElement = htmlDocu.getElementsByTagName("div")[0];
     
-      imageElement.src = "https://drive.google.com/thumbnail?id=" + url + "&sz=w200px";
+      const imageElement.src = "https://drive.google.com/thumbnail?id=" + url + "&sz=w200px";
       const newInnerHTML = `<div id="${element.id}" Nid="${element.Nid}" Sid="${element.Sid}" ready="ok" style="display: block" >   
                               <strong>${element.Nid}</strong><br>
                               Severitate: ${element.Sid} <br>
-                              Imagine: ${imageElement.id} <br>  
-                              <img id="${imageElement.id}" src="${imageElement.src}" alt="Imagine locație" width="200px">
+                              Imagine: ${element.imgId} <br>  
+                              <img id="${element.imgId}" src="${imageElement.src}" alt="Imagine locație" width="200px">
                               </div>`;
      element.setContent(newInnerHTML);
     });
