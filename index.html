@@ -148,12 +148,13 @@ fetch('https://raw.githubusercontent.com/MariaBunas/Cyberpeak-Backend/refs/heads
       //var imageElement = htmlDocu.getElementsByTagName("img")[0];
       // const divElement = htmlDocu.getElementsByTagName("div")[0];
     
-      const imageElement.src = "https://drive.google.com/thumbnail?id=" + url + "&sz=w200px";
+      const imageElementSrc = "https://drive.google.com/thumbnail?id=" + url + "&sz=w200px";
+      // const imageElement.src = "https://drive.google.com/thumbnail?id=" + url + "&sz=w200px";
       const newInnerHTML = `<div id="${element.id}" Nid="${element.Nid}" Sid="${element.Sid}" ready="ok" style="display: block" >   
                               <strong>${element.Nid}</strong><br>
                               Severitate: ${element.Sid} <br>
                               Imagine: ${element.imgId} <br>  
-                              <img id="${element.imgId}" src="${imageElement.src}" alt="Imagine locație" width="200px">
+                              <img id="${element.imgId}" src="${imageElementSrc}" alt="Imagine locație" width="200px">
                               </div>`;
      element.setContent(newInnerHTML);
     });
