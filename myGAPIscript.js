@@ -33,16 +33,7 @@ async function getFileId(fileName, context) {
 
 function getLocationsCsvFileId() {
     
-    // var fileIdPromise = await getFileId("locations.csv", null);
-    // var locationsCsvFileId = null;
-    // fileIdPromise.then(([url, x]) => {
-    //     locationsCsvFileId = url;
-    // });
-    // return locationsCsvFileId;
-    
     return getFileId("locations.csv", null);
-    //var locationsCsvFileId = null;
-    //return locationsCsvFileId;
 }
 
 // async function searchImage() {
