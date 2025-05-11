@@ -12,7 +12,7 @@ async function readFileList_GAPI() {
     if (data.files && data.files.length > 0) {
         for(var i=0; i<data.files.length; i++)
         {
-            listOfFiles.set(data.files[i].name, [data.files[i].id);
+            listOfFiles.set(data.files[i].name, data.files[i].id);
         }
     }
 }
