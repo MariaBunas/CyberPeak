@@ -21,8 +21,9 @@ async function getFileId(fileName, context) {
     if (!isListOfFilesCreated) {
         await readFileList_GAPI();
     } 
-    
-    return [listOfFiles[fileName], context];
+
+    const result = listOfFiles[fileName];
+    return [result, context];
 }
 
 // async function getFileId_old(fileName, context) {
