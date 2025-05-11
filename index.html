@@ -97,7 +97,7 @@ fetch('https://raw.githubusercontent.com/MariaBunas/Cyberpeak-Backend/refs/heads
                      // var gdriveImgUrl = image1Url; //"not found";
                                        
                      var marker = L.marker([lat, lng], { icon : icon}).addTo(map)
-                         .bindPopup(`<div id="${row.name}" Nid="${name}" Sid="${severity}">
+                         .bindPopup(`<div id="${row.name}" data-Nid="${name}" data-Sid="${severity}">
                              <strong>${name}</strong><br>
                              Severitate: ${severity} <br>
                              Imagine: ${row.image} <br>                             
@@ -118,16 +118,16 @@ fetch('https://raw.githubusercontent.com/MariaBunas/Cyberpeak-Backend/refs/heads
    const htmlDoc = parser.parseFromString(htmlContent, 'text/xml');
   const divElement = htmlDoc.getElementsByTagName("div")[0];
   
-  if(!divElement.ready) { // lazy image upload not yet done
+  if(!divElement.dataset.ready) { // lazy image upload not yet done
     var imageElement = htmlDoc.getElementsByTagName("img")[0];
-    const popupContext = {id:divElement.id, Nid:divElement.Nid, Sid:divElement.Sid, imgId:imageElement.id};
+    const popupContext = {id:divElement.id, Nid:divElement.dataset.Nid, Sid:divElement.dataset.Sid, imgId:imageElement.id};
     console.log("Send context: ");
-   count = 0;
-   for (const key in popupContext) {
-    if (count > 4) break; // Check if maxQuestions is reached
-    console.log(popupContext[key]);
-    count++;
-   }
+    count = 0;
+    for (const key in popupContext) {
+     if (count > 4) break; // Check if maxQuestions is reached
+     console.log(popupContext[key]);
+     count++;
+    }
    
     //var fileIdPromise = getFileId(imageElement.id, e.popup);
     //var fileIdPromise = getFileId(imageElement.id, popupContext);
@@ -166,7 +166,7 @@ fetch('https://raw.githubusercontent.com/MariaBunas/Cyberpeak-Backend/refs/heads
     
       const imageElementSrc = "https://drive.google.com/thumbnail?id=" + url + "&sz=w200px";
       // const imageElement.src = "https://drive.google.com/thumbnail?id=" + url + "&sz=w200px";
-      const newInnerHTML = `<div id="${elements.id}" Nid="${elements.Nid}" Sid="${elements.Sid}" ready="ok" style="display: block" >   
+      const newInnerHTML = `<div id="${elements.id}" data-Nid="${elements.Nid}" data-Sid="${elements.Sid}" data-ready="ok" style="display: block" >   
                               <strong>${elements.Nid}</strong><br>
                               Severitate: ${elements.Sid} <br>
                               Imagine: ${elements.imgId} <br>  
