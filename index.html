@@ -78,44 +78,46 @@ legend.addTo(map);
 var csvFileUrl = getLocationsCsvFileId();
 csvFileUrl.then( ([csvUrl,x]) => {
    console.log("CSV url: https://drive.google.com/thumbnail?id=" + csvUrl);
-});
+//});
  
-// 📌 Citim locațiile din CSV și adăugăm markerii pe hartă
-// fetch('https://cyberpeak-server.onrender.com/file/locations.csv')
-fetch('https://raw.githubusercontent.com/MariaBunas/Cyberpeak-Backend/refs/heads/main/locations.csv')
- .then(response => response.text())
- .then(csvText => {
-     Papa.parse(csvText, {
-         header: true,
-         skipEmptyLines: true,
-         complete: function(results) {
-             results.data.forEach(row => {
-                 const lat = parseFloat(row.latitude);
-                 const lng = parseFloat(row.longitude);
-                 const name = row.name || 'Unnamed Location';
-                 const severity = (row.severity || '').toLowerCase();
-                 const icon = icons[severity] || icons['ok']; 
-                 const imageUrl = 'https://raw.githubusercontent.com/MariaBunas/Cyberpeak-Backend/main/uploads/' + row.image;
-                 const image1Url = 'https://cyberpeak-server.onrender.com/image/' + row.image;
-              
-                 if (!isNaN(lat) && !isNaN(lng)) {
-                     // var gdriveImgUrl = image1Url; //"not found";
-                                       
-                     var marker = L.marker([lat, lng], { icon : icon}).addTo(map)
-                         .bindPopup(`<div id="${row.name}" data-Nid="${name}" data-Sid="${severity}">
-                             <strong>${name}</strong><br>
-                             Severitate: ${severity} <br>
-                             Imagine: ${row.image} <br>                             
-                             <img id="${row.image}" src="" alt="Imagine locație" width="200px">
-                             </div>
-                         `);
-                  }
-             });
-         }
-     });
- })
- .catch(error => console.error("Eroare la citirea locațiilor:", error));
-
+ // 📌 Citim locațiile din CSV și adăugăm markerii pe hartă
+ // fetch('https://cyberpeak-server.onrender.com/file/locations.csv')
+ // fetch('https://raw.githubusercontent.com/MariaBunas/Cyberpeak-Backend/refs/heads/main/locations.csv')
+  fetch("https://drive.google.com/thumbnail?id=" + csvUrl)
+  .then(response => response.text())
+  .then(csvText => {
+      Papa.parse(csvText, {
+          header: true,
+          skipEmptyLines: true,
+          complete: function(results) {
+              results.data.forEach(row => {
+                  const lat = parseFloat(row.latitude);
+                  const lng = parseFloat(row.longitude);
+                  const name = row.name || 'Unnamed Location';
+                  const severity = (row.severity || '').toLowerCase();
+                  const icon = icons[severity] || icons['ok']; 
+                  const imageUrl = 'https://raw.githubusercontent.com/MariaBunas/Cyberpeak-Backend/main/uploads/' + row.image;
+                  const image1Url = 'https://cyberpeak-server.onrender.com/image/' + row.image;
+               
+                  if (!isNaN(lat) && !isNaN(lng)) {
+                      // var gdriveImgUrl = image1Url; //"not found";
+                                        
+                      var marker = L.marker([lat, lng], { icon : icon}).addTo(map)
+                          .bindPopup(`<div id="${row.name}" data-Nid="${name}" data-Sid="${severity}">
+                              <strong>${name}</strong><br>
+                              Severitate: ${severity} <br>
+                              Imagine: ${row.image} <br>                             
+                              <img id="${row.image}" src="" alt="Imagine locație" width="200px">
+                              </div>
+                          `);
+                   }
+              });
+          }
+      });
+  })
+  .catch(error => console.error("Eroare la citirea locațiilor:", error));
+ } // read csv file content
+ 
  map.on('popupopen', function(e) {
      
    var htmlContent = e.popup.getContent();
