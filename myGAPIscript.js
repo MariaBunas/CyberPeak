@@ -8,11 +8,14 @@ async function readFileList_GAPI() {
     const url = "https://www.googleapis.com/drive/v3/files?q='" + folderId + "'+in+parents&key=" + API_KEY;
     const response = await fetch(url);
     const data = await response.json();
+
+    console.log("Reading file list from GDrive folder: ");
     
     if (data.files && data.files.length > 0) {
         for(var i=0; i<data.files.length; i++)
         {
             listOfFiles.set(data.files[i].name, data.files[i].id);
+            console.log("File: " + data.files[i].name);
         }
     }
 }
