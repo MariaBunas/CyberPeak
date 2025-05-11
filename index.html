@@ -119,28 +119,44 @@ fetch('https://raw.githubusercontent.com/MariaBunas/Cyberpeak-Backend/refs/heads
   const divElement = htmlDoc.getElementsByTagName("div")[0];
   
   if(!divElement.ready) { // lazy image upload not yet done
-   var imageElement = htmlDoc.getElementsByTagName("img")[0];
-   var fileIdPromise = getFileId(imageElement.id, e.popup);
-   
-   fileIdPromise.then(([url, element]) => {
-
-   // See https://github.com/Leaflet/Leaflet/issues/8130 for updating popup content via setContent!!!
-   
-     var htmlContnt = element.getContent();
-     const domParser = new DOMParser();
-     const htmlDocu = domParser.parseFromString(htmlContnt, 'text/xml');
-     var imageElement = htmlDocu.getElementsByTagName("img")[0];
-     const divElement = htmlDocu.getElementsByTagName("div")[0];
-   
-     imageElement.src = "https://drive.google.com/thumbnail?id=" + url + "&sz=w200px";
-     const newInnerHTML = `<div id="${divElement.id}" Nid="${divElement.Nid}" Sid="${divElement.Sid}" ready="ok" style="display: block" >   
-                             <strong>${divElement.Nid}</strong><br>
-                             Severitate: ${divElement.Sid} <br>
-                             Imagine: ${imageElement.id} <br>  
-                             <img id="${imageElement.id}" src="${imageElement.src}" alt="Imagine locație" width="200px">
-                             </div>`;
-    element.setContent(newInnerHTML);
-   });
+    var imageElement = htmlDoc.getElementsByTagName("img")[0];
+    const popupContext = {id:divElement.id, Nid:divElement.Nid, Sid:divElement.Sid};
+    //var fileIdPromise = getFileId(imageElement.id, e.popup);
+    var fileIdPromise = getFileId(imageElement.id, popupContext);
+    
+    fileIdPromise.then(([url, element]) => {
+ 
+    // See https://github.com/Leaflet/Leaflet/issues/8130 for updating popup content via setContent!!!
+    
+     //  var htmlContnt = element.getContent();
+     //  const domParser = new DOMParser();
+     //  const htmlDocu = domParser.parseFromString(htmlContnt, 'text/xml');
+     //  var imageElement = htmlDocu.getElementsByTagName("img")[0];
+     //  const divElement = htmlDocu.getElementsByTagName("div")[0];
+    
+     //  imageElement.src = "https://drive.google.com/thumbnail?id=" + url + "&sz=w200px";
+     //  const newInnerHTML = `<div id="${divElement.id}" Nid="${divElement.Nid}" Sid="${divElement.Sid}" ready="ok" style="display: block" >   
+     //                          <strong>${divElement.Nid}</strong><br>
+     //                          Severitate: ${divElement.Sid} <br>
+     //                          Imagine: ${imageElement.id} <br>  
+     //                          <img id="${imageElement.id}" src="${imageElement.src}" alt="Imagine locație" width="200px">
+     //                          </div>`;
+     // element.setContent(newInnerHTML);
+      var htmlContnt = element.getContent();
+      const domParser = new DOMParser();
+      const htmlDocu = domParser.parseFromString(htmlContnt, 'text/xml');
+      var imageElement = htmlDocu.getElementsByTagName("img")[0];
+      // const divElement = htmlDocu.getElementsByTagName("div")[0];
+    
+      imageElement.src = "https://drive.google.com/thumbnail?id=" + url + "&sz=w200px";
+      const newInnerHTML = `<div id="${element.id}" Nid="${element.Nid}" Sid="${element.Sid}" ready="ok" style="display: block" >   
+                              <strong>${element.Nid}</strong><br>
+                              Severitate: ${element.Sid} <br>
+                              Imagine: ${imageElement.id} <br>  
+                              <img id="${imageElement.id}" src="${imageElement.src}" alt="Imagine locație" width="200px">
+                              </div>`;
+     element.setContent(newInnerHTML);
+    });
   } // if ready block
  });               
   
