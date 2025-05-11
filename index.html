@@ -118,7 +118,9 @@ fetch('https://raw.githubusercontent.com/MariaBunas/Cyberpeak-Backend/refs/heads
    const htmlDoc = parser.parseFromString(htmlContent, 'text/xml');
   const divElement = htmlDoc.getElementsByTagName("div")[0];
   
-  if(!divElement.data-ready) { // lazy image upload not yet done
+  // if(!divElement.data-ready) { // lazy image upload not yet done
+  if(!divElement.hasAttribute("data-ready")) { // lazy image upload not yet done
+ 
     var imageElement = htmlDoc.getElementsByTagName("img")[0];
     const popupContext = {id:divElement.id, Nid:divElement.data-Nid, Sid:divElement.data-Sid, imgId:imageElement.id};
     console.log("Send context: ");
