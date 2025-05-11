@@ -4,6 +4,7 @@ var isListOfFilesCreated = false;
 var listOfFiles = new Map();
 
 async function readFileList_GAPI() {
+    
     const folderId = "1lCpQoNRIPs6Q294Vt7JwDoq5GhPKEf6b";
     const url = "https://www.googleapis.com/drive/v3/files?q='" + folderId + "'+in+parents&key=" + API_KEY;
     const response = await fetch(url);
@@ -21,6 +22,8 @@ async function readFileList_GAPI() {
 }
 
 async function getFileId(fileName, context) {
+
+    // load list of files from google drive and store them to "cache" of listOfFiles if cache is empty 
     if (!isListOfFilesCreated) {
         isListOfFilesCreated = true;
         await readFileList_GAPI();
@@ -30,40 +33,8 @@ async function getFileId(fileName, context) {
     return [result, context];
 }
 
-// async function getFileId_old(fileName, context) {
-    
-//     // const url = `https://www.googleapis.com/drive/v3/files?q=name='${fileName}' and trashed=false&key=${API_KEY}&fields=files(id,name)`;
-//     // const url = `https://www.googleapis.com/drive/v3/files?q=title='${fileName}' and fileExtension='${extension}' and trashed=false&key=${API_KEY}&fields=files(id,name)`;
-//     //title="File_1.xml" and fileExtension="xml"
-//     //const url = `https://www.googleapis.com/drive/v3/files?q=name='${fileName}'&key=${API_KEY}&fields=files(id,name)`;
-//     const folderId = "1lCpQoNRIPs6Q294Vt7JwDoq5GhPKEf6b";
-//     const url = "https://www.googleapis.com/drive/v3/files?q='" + folderId + "'+in+parents&key=" + API_KEY;
-//     const response = await fetch(url);
-//     const data = await response.json();
-
-//     // alert(fileName);
-    
-//     var index = -1;
-//     if (data.files && data.files.length > 0) {
-//         for(var i=0; i<data.files.length; i++)
-//         {
-//             if(data.files[i].name === fileName) {
-//                 index = i;
-//             }
-//         }
-//     }
-//     if ( index > -1 ) {
-//         // alert("found index " + index);
-//         return [data.files[index].id, context]; // Get first matching file ID
-//     } else {
-//         // alert("not found");
-//         console.error("File not found.");
-//         return [null, context];
-//     }
-// }
-
 function getLocationsCsvFileId() {
-    
+    // read csv file using it's name
     return getFileId("locations.csv", null);
 }
 
