@@ -75,10 +75,10 @@ return div;
 }; 
 legend.addTo(map);
 
- getLocationsCsvFileId()
- .then( ([csvUrl,x]) => {
+var csvFileUrl = getLocationsCsvFileId();
+csvFileUrl.then( ([csvUrl,x]) => {
    console.log("CSV url: https://drive.google.com/thumbnail?id=" + csvUrl);
- });
+});
  
 // 📌 Citim locațiile din CSV și adăugăm markerii pe hartă
 // fetch('https://cyberpeak-server.onrender.com/file/locations.csv')
