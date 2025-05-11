@@ -83,7 +83,11 @@ csvFileUrl.then( ([csvUrl,x]) => {
  // 📌 Citim locațiile din CSV și adăugăm markerii pe hartă
  // fetch('https://cyberpeak-server.onrender.com/file/locations.csv')
  // fetch('https://raw.githubusercontent.com/MariaBunas/Cyberpeak-Backend/refs/heads/main/locations.csv')
-  fetch("https://drive.google.com/thumbnail?id=" + csvUrl)
+  
+  //read.csv("https://docs.google.com/spreadsheets/d/" + csvUrl + "/pub?output=csv")
+  
+  //fetch("https://drive.google.com/thumbnail?id=" + csvUrl)
+ fetch("https://docs.google.com/spreadsheets/d/" + csvUrl + "/pub?output=csv")
   .then(response => response.text())
   .then(csvText => {
       Papa.parse(csvText, {
