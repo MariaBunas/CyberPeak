@@ -94,18 +94,17 @@ csvFileUrl.then( ([csvUrl,x]) => {
           complete: function(results) {
               results.data.forEach(row => {
                   // TODO: store CSV rows as separate element in a map, where Key is <row.image> and value is an array with rest of data [name, latitude, longitude, severity
-                  // no need to read them in "popupopen" function based on div data-xxx elements, we can just read them directly from this map (and it is faster..)
+                  // no need to read them in "popupopen" function based on div data-xxx elements, we can just read them directly from this map (and it is faster..), so no need to store them in div attributes as well (only div id for image id)
                   const lat = parseFloat(row.latitude);
                   const lng = parseFloat(row.longitude);
                   const name = row.name || 'Unnamed Location';
                   const severity = (row.severity || '').toLowerCase();
                   const icon = icons[severity] || icons['ok']; 
-                  const imageUrl = 'https://raw.githubusercontent.com/MariaBunas/Cyberpeak-Backend/main/uploads/' + row.image;
-                  const image1Url = 'https://cyberpeak-server.onrender.com/image/' + row.image;
+                  // const imageUrl = 'https://raw.githubusercontent.com/MariaBunas/Cyberpeak-Backend/main/uploads/' + row.image;
+                  // const image1Url = 'https://cyberpeak-server.onrender.com/image/' + row.image;
                
                   if (!isNaN(lat) && !isNaN(lng)) {
-                      // var gdriveImgUrl = image1Url; //"not found";
-                                        
+                                         
                       var marker = L.marker([lat, lng], { icon : icon}).addTo(map)
                           .bindPopup(`<div id="${row.name}" data-Nid="${name}" data-Sid="${severity}">
                               <strong>${name}</strong><br>
