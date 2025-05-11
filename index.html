@@ -88,7 +88,9 @@ csvFileUrl.then( ([csvUrl,x]) => {
   
   //fetch("https://drive.google.com/thumbnail?id=" + csvUrl)
   //fetch("https://docs.google.com/spreadsheets/d/" + csvUrl + "/pub?output=csv")
-  fetch("https://drive.google.com/uc?export=download&id=" + csvUrl)
+  //fetch("https://drive.google.com/uc?export=download&id=" + csvUrl)
+  // https://www.googleapis.com/drive/v3/files/${fileId}?alt=media&key=${apiKey}
+  fetch("https://drive.google.com/uc?export=download&id=" + csvUrl + "&key=" + API_KEY )
   .then(response => response.text())
   .then(csvText => {
       Papa.parse(csvText, {
