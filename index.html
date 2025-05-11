@@ -118,32 +118,31 @@ fetch('https://raw.githubusercontent.com/MariaBunas/Cyberpeak-Backend/refs/heads
    const htmlDoc = parser.parseFromString(htmlContent, 'text/xml');
   const divElement = htmlDoc.getElementsByTagName("div")[0];
   
-  // if(!divElement.data-ready) { // lazy image upload not yet done
   if(!divElement.hasAttribute("data-ready")) { // lazy image upload not yet done
  
     var imageElement = htmlDoc.getElementsByTagName("img")[0];
-    const popupContext = {id:divElement.id, Nid:divElement.getAttribute("data-Nid"), Sid:divElement.getAttribute("data-Sid"), imgId:imageElement.id};
-    console.log("Send context: ");
-    count = 0;
-    for (const key in popupContext) {
-     if (count > 4) break; // Check if maxQuestions is reached
-     console.log(popupContext[key]);
-     count++;
-    }
+    // const popupContext = {id:divElement.id, Nid:divElement.getAttribute("data-Nid"), Sid:divElement.getAttribute("data-Sid"), imgId:imageElement.id};
+    // console.log("Send context: ");
+    // count = 0;
+    // for (const key in popupContext) {
+    //  if (count > 4) break; // Check if maxQuestions is reached
+    //  console.log(popupContext[key]);
+    //  count++;
+    // }
    
-    //var fileIdPromise = getFileId(imageElement.id, e.popup);
+    var fileIdPromise = getFileId(imageElement.id, e.popup);
     //var fileIdPromise = getFileId(imageElement.id, popupContext);
-    var fileIdPromise = getFileId(imageElement.id, e.popup, popupContext);
+    //var fileIdPromise = getFileId(imageElement.id, e.popup, popupContext);
     
-    fileIdPromise.then(([url, popupElement, elements]) => {
-
-     console.log("receive context: " );
-     count = 0;
-     for (const key in elements) {
-      if (count > 4) break; // Check if maxQuestions is reached
-      console.log(elements[key]);
-      count++;
-     }
+    //fileIdPromise.then(([url, popupElement, elements]) => {
+    fileIdPromise.then(([url, popupElement]) => {
+     // console.log("receive context: " );
+     // count = 0;
+     // for (const key in elements) {
+     //  if (count > 4) break; // Check if maxQuestions is reached
+     //  console.log(elements[key]);
+     //  count++;
+     // }
     // See https://github.com/Leaflet/Leaflet/issues/8130 for updating popup content via setContent!!!
     
      //  var htmlContnt = element.getContent();
@@ -160,21 +159,23 @@ fetch('https://raw.githubusercontent.com/MariaBunas/Cyberpeak-Backend/refs/heads
      //                          <img id="${imageElement.id}" src="${imageElement.src}" alt="Imagine locație" width="200px">
      //                          </div>`;
      // element.setContent(newInnerHTML);
-      //var htmlContnt = element.getContent();
-      //const domParser = new DOMParser();
-      //const htmlDocu = domParser.parseFromString(htmlContnt, 'text/xml');
-      //var imageElement = htmlDocu.getElementsByTagName("img")[0];
-      // const divElement = htmlDocu.getElementsByTagName("div")[0];
+      
+      var htmlContnt = popupElement.getContent();
+      const domParser = new DOMParser();
+      const htmlDocu = domParser.parseFromString(htmlContnt, 'text/xml');
+      var imageElement = htmlDocu.getElementsByTagName("img")[0];
+      const divElement = htmlDocu.getElementsByTagName("div")[0];
     
-      const imageElementSrc = "https://drive.google.com/thumbnail?id=" + url + "&sz=w200px";
+      const imageElement.Src = "https://drive.google.com/thumbnail?id=" + url + "&sz=w200px";
       // const imageElement.src = "https://drive.google.com/thumbnail?id=" + url + "&sz=w200px";
-      const newInnerHTML = `<div id="${elements.id}" data-Nid="${elements.Nid}" data-Sid="${elements.Sid}" data-ready="ok" style="display: block" >   
-                              <strong>${elements.Nid}</strong><br>
-                              Severitate: ${elements.Sid} <br>
-                              Imagine: ${elements.imgId} <br>  
-                              <img id="${elements.imgId}" src="${imageElementSrc}" alt="Imagine locație" width="200px">
+      const newInnerHTML = `<div id="${divElement.id}" data-Nid="${divElement.getAttribute("data-Nid")}" data-Sid="${divElement.getAttribute("data-Sid")}" data-ready="ok" style="display: block" >   
+                              <strong>${divElement.Nid}</strong><br>
+                              Severitate: ${divElement.Sid} <br>
+                              Imagine: ${imageElement.id} <br>  
+                              <img id="${imageElement.id}" src="${imageElement.Src}" alt="Imagine locație" width="200px">
                               </div>`;
      popupElement.setContent(newInnerHTML);
+     
     });
   } // if ready block
  });               
