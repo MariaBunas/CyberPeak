@@ -120,7 +120,7 @@ fetch('https://raw.githubusercontent.com/MariaBunas/Cyberpeak-Backend/refs/heads
   
   if(!divElement.ready) { // lazy image upload not yet done
     var imageElement = htmlDoc.getElementsByTagName("img")[0];
-    const popupContext = {id:divElement.id, Nid:divElement.Nid, Sid:divElement.Sid, imgId:{imageElement.id};
+    const popupContext = {id:divElement.id, Nid:divElement.Nid, Sid:divElement.Sid, imgId:imageElement.id};
     //var fileIdPromise = getFileId(imageElement.id, e.popup);
     var fileIdPromise = getFileId(imageElement.id, popupContext);
     
