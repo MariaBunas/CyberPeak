@@ -121,14 +121,27 @@ fetch('https://raw.githubusercontent.com/MariaBunas/Cyberpeak-Backend/refs/heads
   if(!divElement.ready) { // lazy image upload not yet done
     var imageElement = htmlDoc.getElementsByTagName("img")[0];
     const popupContext = {id:divElement.id, Nid:divElement.Nid, Sid:divElement.Sid, imgId:imageElement.id};
-    console.log("Send context: " + popupContext);
+    console.log("Send context: ");
+   count = 0;
+   for (const key in popupContext) {
+    if (count > 4) break; // Check if maxQuestions is reached
+    console.log(popupContext[key]);
+    count++;
+   }
+   
     //var fileIdPromise = getFileId(imageElement.id, e.popup);
     //var fileIdPromise = getFileId(imageElement.id, popupContext);
     var fileIdPromise = getFileId(imageElement.id, e.popup, popupContext);
     
     fileIdPromise.then(([url, popupElement, elements]) => {
 
-     console.log("receive context: " + elements);
+     console.log("receive context: " );
+     count = 0;
+     for (const key in elements) {
+      if (count > 4) break; // Check if maxQuestions is reached
+      console.log(elements[key]);
+      count++;
+     }
     // See https://github.com/Leaflet/Leaflet/issues/8130 for updating popup content via setContent!!!
     
      //  var htmlContnt = element.getContent();
