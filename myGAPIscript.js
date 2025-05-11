@@ -19,6 +19,7 @@ async function readFileList_GAPI() {
 
 async function getFileId(fileName, context) {
     if (!isListOfFilesCreated) {
+        isListOfFilesCreated = true;
         await readFileList_GAPI();
     } 
 
