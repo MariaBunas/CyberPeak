@@ -62,36 +62,29 @@ shadowSize: [41, 41] }) };
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '&copy; OpenStreetMap contributors' }).addTo(map); const legend = L.control({ position: 'bottomright' }); 
 
 legend.onAdd = function (map) { 
-const div = L.DomUtil.create('div', 'info-legend'); 
-div.innerHTML = `
- <strong>Severity</strong><br> 
-<div class="legend-item"><span class="dot red"></span> 
-Bad</div> 
-<div class="legend-item"><span class="dot yellow"></span> 
-Pretty Bad</div> <div class="legend-item"><span class="dot green"></span> 
-OK</div> 
-`; 
-return div; 
+  const div = L.DomUtil.create('div', 'info-legend'); 
+  div.innerHTML = `
+   <strong>Severity</strong><br> 
+  <div class="legend-item"><span class="dot red"></span> 
+  Bad</div> 
+  <div class="legend-item"><span class="dot yellow"></span> 
+  Pretty Bad</div> <div class="legend-item"><span class="dot green"></span> 
+  OK</div> 
+  `; 
+  return div; 
 }; 
 legend.addTo(map);
 
 var csvFileUrl = getLocationsCsvFileId();
 csvFileUrl.then( ([csvUrl,x]) => {
-   console.log("CSV url: https://drive.google.com/thumbnail?id=" + csvUrl);
-//});
  
  // 📌 Citim locațiile din CSV și adăugăm markerii pe hartă
  // fetch('https://cyberpeak-server.onrender.com/file/locations.csv')
  // fetch('https://raw.githubusercontent.com/MariaBunas/Cyberpeak-Backend/refs/heads/main/locations.csv')
-  
-  //read.csv("https://docs.google.com/spreadsheets/d/" + csvUrl + "/pub?output=csv")
-  
-  //fetch("https://drive.google.com/thumbnail?id=" + csvUrl)
-  //fetch("https://docs.google.com/spreadsheets/d/" + csvUrl + "/pub?output=csv")
-  //fetch("https://drive.google.com/uc?export=download&id=" + csvUrl)
-  // https://www.googleapis.com/drive/v3/files/${fileId}?alt=media&key=${apiKey}
-  // fetch("https://drive.google.com/uc?export=download&id=" + csvUrl + "&key=" + API_KEY )
+ 
  const fileCsvURL = "https://www.googleapis.com/drive/v3/files/" + csvUrl + "?alt=media&key=" + API_KEY;
+ console.log("Locations.csv G.Drive URL: " + fileCsvURL);
+ 
  fetch(fileCsvURL)
   .then(response => response.text())
   .then(csvText => {
@@ -100,6 +93,8 @@ csvFileUrl.then( ([csvUrl,x]) => {
           skipEmptyLines: true,
           complete: function(results) {
               results.data.forEach(row => {
+                  // TODO: store CSV rows as separate element in a map, where Key is <row.image> and value is an array with rest of data [name, latitude, longitude, severity
+                  // no need to read them in "popupopen" function based on div data-xxx elements, we can just read them directly from this map (and it is faster..)
                   const lat = parseFloat(row.latitude);
                   const lng = parseFloat(row.longitude);
                   const name = row.name || 'Unnamed Location';
