@@ -31,6 +31,16 @@ async function getFileId(fileName, context) {
     }
 }
 
+function getLocationsCsvFileId() {
+    
+    var fileIdPromise = getFileId("locations.csv", null);
+    var locationsCsvFileId = null;
+    fileIdPromise.then(([url, x]) => {
+        locationsCsvFileId = url;
+    });
+    return locationsCsvFileId;
+}
+
 // async function searchImage() {
 //     const fileName = document.getElementById("fileName").value;
     
