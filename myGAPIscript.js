@@ -40,7 +40,7 @@ function getLocationsCsvFileId() {
     // });
     // return locationsCsvFileId;
     
-    var fileIdPromise = await getFileId("locations.csv", null);
+    var fileIdPromise = getFileId("locations.csv", null);
     var locationsCsvFileId = null;
     return locationsCsvFileId;
 }
