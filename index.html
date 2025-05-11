@@ -128,7 +128,7 @@ csvFileUrl.then( ([csvUrl,x]) => {
    const htmlDoc = parser.parseFromString(htmlContent, 'text/xml');
    const divElement = htmlDoc.getElementsByTagName("div")[0];
    
-   if(!divElement.hasAttribute("data-ready")) { // lazy image upload not yet done
+   if(!divElement.hasAttribute("data-ready")) { // lazy image upload not yet done ? if already done, skip
  
     var imageElement = htmlDoc.getElementsByTagName("img")[0];
     var fileIdPromise = getFileId(imageElement.id, e.popup);
@@ -140,9 +140,9 @@ csvFileUrl.then( ([csvUrl,x]) => {
       const htmlDocu = domParser.parseFromString(htmlContnt, 'text/xml');
       var imageElement = htmlDocu.getElementsByTagName("img")[0];
       const divElement = htmlDocu.getElementsByTagName("div")[0];
-    
+
+      // as image url is now available, the only way to update image of popup is to recreate (setContent) the html of the popup, based on initial content
       imageElement.Src = "https://drive.google.com/thumbnail?id=" + url + "&sz=w200px";
-      // const imageElement.src = "https://drive.google.com/thumbnail?id=" + url + "&sz=w200px";
       const Nid = divElement.getAttribute("data-Nid");
       const Sid = divElement.getAttribute("data-Sid");
       const newInnerHTML = `<div id="${divElement.id}" data-Nid="${Nid}" data-Sid="${Sid}" data-ready="ok" style="display: block" >   
@@ -159,23 +159,6 @@ csvFileUrl.then( ([csvUrl,x]) => {
   
  
 </script> 
-
- <!--
- <div>
- <h1>Load Image from Google Drive</h1>
-    
-    <input type="text" id="fileName" placeholder="Enter image name">
-    <button onclick="searchImage()">Load Image</button>
-    
-    <br><br>
-    <img id="driveImage" src="" alt="Image details">
-
-   <br><br>
-  <img_none src="https://drive.google.com/uc?export=view&id=1u49KytXw5JuPgUp8boIqJYevJpzUp4Nd" alt="Google Drive Image" width="500">
-   <img_none src="https://drive.google.com/thumbnail?id=1u49KytXw5JuPgUp8boIqJYevJpzUp4Nd&sz=w500" alt="Your Image Alt Text">
-    
- </div>
--->
     
 <!-- Subsol gri cu buton Instagram și mesaj de drepturi de autor -->
 <footer class="footer">
