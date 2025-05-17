@@ -7,11 +7,13 @@
 # Authentication is defined via github.Auth
 from github import Github
 from github import Auth
+import shutil
+import random
 
 # read from local file
 file = open("tst.txt", "r")
 tst = file.read()
-print(tst)
+#print(tst)
 file.close()
 
 # using an access token
@@ -35,17 +37,35 @@ for repo in user.get_repos():
 # Create a new file in the sandbox repo / master branch
 # since the repo is new, there is no branches so master will be "created" as well.
 
-# Name,severity,latitude,longitude,image
+# this is used to generate a copy of an existing file with a newly generate file name
+def copy_and_rename(src_path, dest_path, new_name):
+	# Copy the file
+	shutil.copy(src_path, dest_path)
+
+	# Rename the copied file
+	new_path = f"{dest_path}/{new_name}"
+	shutil.move(f"{dest_path}/{src_path}", new_path)
 
 index='90'
+imgName='img'+index+'.jpg'
+
+#for test purpose duplicate an existing file and use it's new random name for uploading to Github
+source_file = imgName
+destination_folder = "Dataset"
+newFileIndex=random.randint(10,10000)
+new_file_name = 'img' + newFilIndex + '.jpg"
+imgName = new_file_name
+print("New file name: " + imgName) 
+copy_and_rename(destination_folder + '/' + source_file, destination_folder, new_file_name)
+
+# Name,severity,latitude,longitude,image
+
 name='Timisoara'
 severity='warning'
 latitude='45.752914041430714'
 longitude='45.752914041430714'
-imgName='img'+index+'.jpg'
 repo = g.get_repo(user.login+"/CyberPeak")
 new_line = name + ',' + severity + ',' + latitude + ',' + longitude + ',' + imgName
-
 
 file = repo.get_contents("Dataset/locations.csv", ref="main")
 filePath = file.path
@@ -55,7 +75,6 @@ newFile = newFile + '\n' + new_line
 #.replace("Sample Text","A way better and improved sample Text")
 repo.update_file(filePath, "FileUpdated", newFile, file.sha, branch="main")
 print('--> File locations.csv updated.')
-
 
 file_path = 'Dataset/'+imgName
 message = "Commit Message - Add new image"
