@@ -7,6 +7,7 @@
 # Authentication is defined via github.Auth
 from github import Github
 from github import Auth
+from pathlib import Path
 import shutil
 import random
 
@@ -38,13 +39,14 @@ for repo in user.get_repos():
 # since the repo is new, there is no branches so master will be "created" as well.
 
 # this is used to generate a copy of an existing file with a newly generate file name
-def copy_and_rename(src_path, dest_path, new_name):
-	# Copy the file
-	shutil.copy(src_path, dest_path)
+def copy_and_rename_pathlib(src_path, dest_path, new_name):
+	# Create Path objects
+	src_path = Path(src_path)
+	dest_path = Path(dest_path)
 
-	# Rename the copied file
-	new_path = f"{dest_path}/{new_name}"
-	shutil.move(f"{dest_path}/{src_path}", new_path)
+	# Copy and rename the file
+	new_path = dest_path / new_name
+	src_path.rename(new_path)
 
 index='90'
 imgName='img'+index+'.jpg'
@@ -53,10 +55,10 @@ imgName='img'+index+'.jpg'
 source_file = imgName
 destination_folder = "Dataset"
 newFileIndex=random.randint(10,10000)
-new_file_name = 'img' + newFilIndex + '.jpg"
+new_file_name = "img" + str(newFileIndex) + ".jpg"
 imgName = new_file_name
 print("New file name: " + imgName) 
-copy_and_rename(destination_folder + '/' + source_file, destination_folder, new_file_name)
+copy_and_rename_pathlib(destination_folder + '/' + source_file, destination_folder, new_file_name)
 
 # Name,severity,latitude,longitude,image
 
