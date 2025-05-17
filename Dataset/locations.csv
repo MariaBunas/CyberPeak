@@ -1,4 +1,4 @@
-Name,severity,latitude,longitude,image
+name,severity,latitude,longitude,image
 Location A,bad,45.7489,21.2087,img0.jpg
 Location B,warning,44.4268,26.1025,img1.jpg
 Location C,ok,46.7712,23.6236,img2.jpg
