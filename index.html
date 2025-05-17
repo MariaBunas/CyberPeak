@@ -1,0 +1,188 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+<title>Hartă Interactivă</title>
+<link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+<meta charset="utf-8" />
+ <meta name="viewport" content="width=device-width, initial-
+scale=1.0">
+ 
+<!-- Leaflet CSS and JS --> 
+<link rel="stylesheet" 
+href="https://unpkg.com/leaflet/dist/leaflet.css" /> 
+<link rel="stylesheet" href="style.css"> 
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script> 
+
+<!-- PapaParse CSV Parser --> 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js">
+</script>
+ 
+<!-- <script type="text/javascript" src="script.js"></script> -->
+
+<style> 
+#map { height: 600px; width: 100%; } 
+</style> 
+</head> 
+<body> 
+
+
+<h2>🗺️ Hartă Interactivă - Cyberpeak</h2> 
+<div id="map"></div> 
+
+<!-- <script src="myGAPIscript.js"></script> -->
+ 
+<script> 
+// icons : 
+const icons = { 
+ok: L.icon({ 
+iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png',
+ iconSize: [25, 41],
+ iconAnchor: [12, 41],
+ popupAnchor: [1, -34],
+ shadowUrl: 'https://unpkg.com/leaflet@1.9.3/dist/images/marker-shadow.png', 
+shadowSize: [41, 41] }), 
+warning: L.icon({ 
+iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-yellow.png', 
+iconSize: [25, 41], 
+iconAnchor: [12, 41], 
+popupAnchor: [1, -34], 
+shadowUrl: 'https://unpkg.com/leaflet@1.9.3/dist/images/marker-shadow.png', 
+shadowSize: [41, 41] }), 
+bad: L.icon({ 
+iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png', 
+iconSize: [25, 41], 
+iconAnchor: [12, 41], 
+popupAnchor: [1, -34], 
+shadowUrl: 'https://unpkg.com/leaflet@1.9.3/dist/images/marker-shadow.png', 
+shadowSize: [41, 41] }) }; 
+
+// Initialize the map
+ const map = L.map('map').setView([45.76, 21.23], 6);  // Center map as needed 
+
+// Load tile layer (OpenStreetMap) 
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '&copy; OpenStreetMap contributors' }).addTo(map); const legend = L.control({ position: 'bottomright' }); 
+
+legend.onAdd = function (map) { 
+  const div = L.DomUtil.create('div', 'info-legend'); 
+  div.innerHTML = `
+   <strong>Severity</strong><br> 
+  <div class="legend-item"><span class="dot red"></span> 
+  Bad</div> 
+  <div class="legend-item"><span class="dot yellow"></span> 
+  Pretty Bad</div> <div class="legend-item"><span class="dot green"></span> 
+  OK</div> 
+  `; 
+  return div; 
+}; 
+legend.addTo(map);
+
+// var csvFileUrl = getLocationsCsvFileId();
+// csvFileUrl.then( ([csvUrl,x]) => {
+ 
+//  // 📌 Citim locațiile din CSV și adăugăm markerii pe hartă
+//  // fetch('https://cyberpeak-server.onrender.com/file/locations.csv')
+//  // fetch('https://raw.githubusercontent.com/MariaBunas/Cyberpeak-Backend/refs/heads/main/locations.csv')
+ 
+//  const fileCsvURL = "https://www.googleapis.com/drive/v3/files/" + csvUrl + "?alt=media&key=" + API_KEY;
+//  console.log("Locations.csv G.Drive URL: " + fileCsvURL);
+ 
+ // fetch(fileCsvURL)
+ fetch('https://raw.githubusercontent.com/MariaBunas/CyberPeak/refs/heads/main/Dataset/locations.csv')
+  .then(response => response.text())
+  .then(csvText => {
+      Papa.parse(csvText, {
+          header: true,
+          skipEmptyLines: true,
+          complete: function(results) {
+              results.data.forEach(row => {
+                  // TODO: store CSV rows as separate element in a map, where Key is <row.image> and value is an array with rest of data [name, latitude, longitude, severity
+                  // no need to read them in "popupopen" function based on div data-xxx elements, we can just read them directly from this map (and it is faster..), so no need to store them in div attributes as well (only div id for image id)
+                  const lat = parseFloat(row.latitude);
+                  const lng = parseFloat(row.longitude);
+                  const name = row.name || 'Unnamed Location';
+                  const severity = (row.severity || '').toLowerCase();
+                  const icon = icons[severity] || icons['ok']; 
+                  // const imageUrl = 'https://raw.githubusercontent.com/MariaBunas/Cyberpeak-Backend/main/uploads/' + row.image;
+                  // const image1Url = 'https://cyberpeak-server.onrender.com/image/' + row.image;
+                  const imageUrl = 'https://raw.githubusercontent.com/MariaBunas/Cyberpeak/main/Dataset/' + row.image;
+                  
+                  console.log("Add marker for " + name + ", file: " + row.image); 
+               
+                  if (!isNaN(lat) && !isNaN(lng)) {
+                                         
+                      var marker = L.marker([lat, lng], { icon : icon}).addTo(map)
+                          .bindPopup(`<div id="${row.name}" data-Nid="${name}" data-Sid="${severity}">
+                              <strong>${name}</strong><br>
+                              Severitate: ${severity} <br>
+                              Imagine: ${row.image} <br>                             
+                              <img id="${row.image}" src="${imageUrl}" alt="Imagine locație" width="200px">
+                              </div>
+                          `);
+                   }
+              });
+          }
+      });
+  })
+  .catch(error => console.error("Eroare la citirea locațiilor:", error));
+ //}); // read csv file content
+ 
+ // map.on('popupopen', function(e) {
+     
+ //   var htmlContent = e.popup.getContent();
+ //   const parser = new DOMParser();
+ //   const htmlDoc = parser.parseFromString(htmlContent, 'text/xml');
+ //   const divElement = htmlDoc.getElementsByTagName("div")[0];
+   
+ //   if(!divElement.hasAttribute("data-ready")) { // lazy image upload not yet done ? if already done, skip
+ 
+ //    var imageElement = htmlDoc.getElementsByTagName("img")[0];
+ //    var fileIdPromise = getFileId(imageElement.id, e.popup);
+
+ //    fileIdPromise.then(([url, popupElement]) => {
+       
+ //      var htmlContnt = popupElement.getContent();
+ //      const domParser = new DOMParser();
+ //      const htmlDocu = domParser.parseFromString(htmlContnt, 'text/xml');
+ //      var imageElement = htmlDocu.getElementsByTagName("img")[0];
+ //      const divElement = htmlDocu.getElementsByTagName("div")[0];
+
+ //      // as image url is now available, the only way to update image of popup is to recreate (setContent) the html of the popup, based on initial content
+ //      imageElement.Src = "https://drive.google.com/thumbnail?id=" + url + "&sz=w200px";
+ //      const Nid = divElement.getAttribute("data-Nid");
+ //      const Sid = divElement.getAttribute("data-Sid");
+ //      const newInnerHTML = `<div id="${divElement.id}" data-Nid="${Nid}" data-Sid="${Sid}" data-ready="ok" style="display: block" >   
+ //                              <strong>${Nid}</strong><br>
+ //                              Severitate: ${Sid} <br>
+ //                              Imagine: ${imageElement.id} <br>  
+ //                              <img id="${imageElement.id}" src="${imageElement.Src}" alt="Imagine locație" width="200px">
+ //                              </div>`;
+ //      popupElement.setContent(newInnerHTML);
+     
+ //    });
+ //  } // if ready block
+ // });               
+  
+ 
+</script> 
+    
+<!-- Subsol gri cu buton Instagram și mesaj de drepturi de autor -->
+<footer class="footer">
+    <div class="footer-content">
+     <!--
+        <a href="https://www.instagram.com/cyberpeak_/" target="_blank" class="instagram-button">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram">
+            Pagina de Instagram
+        </a>
+      -->
+        <p class="copyright-text">
+            Toate drepturile sunt rezervate echipei Cyberpeak, liceul C.D.Loga . Utilizarea neautorizată a acestui material, 
+            inclusiv reproducerea, distribuirea, afișarea sau transmiterea oricărui conținut, este strict 
+            interzisă fără consimțământul expres al echipei noastre și al coordonatoarei de proiect, 
+            conform Legii nr. 8/1996 privind dreptul de autor.
+        </p>
+    </div>
+</footer>
+ 
+</body> 
+</html>
+
