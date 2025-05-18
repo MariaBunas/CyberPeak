@@ -110,7 +110,7 @@ legend.addTo(map);
                
                   if (!isNaN(lat) && !isNaN(lng)) {
 
-                      var shortImageFile = row.image.substring(0, length);
+                      var shortImageFile = row.image.substring(0, 22); // display only first part of the string as it is long
                       var marker = L.marker([lat, lng], { icon : icon}).addTo(map)
                           .bindPopup(`<div id="${row.name}" data-Nid="${name}" data-Sid="${severity}">
                               <strong>${name}</strong><br>
