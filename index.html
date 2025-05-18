@@ -109,12 +109,13 @@ legend.addTo(map);
                   console.log("Add marker for " + name + ", file: " + row.image); 
                
                   if (!isNaN(lat) && !isNaN(lng)) {
-                                         
+
+                      var shortImageFile = row.image.substring(0, length);
                       var marker = L.marker([lat, lng], { icon : icon}).addTo(map)
                           .bindPopup(`<div id="${row.name}" data-Nid="${name}" data-Sid="${severity}">
                               <strong>${name}</strong><br>
                               Severitate: ${severity} <br>
-                              Imagine: ${row.image} <br>                             
+                              Imagine: ${shortImageFile} <br>                             
                               <img id="${row.image}" src="${imageUrl}" alt="Imagine locație" width="200px">
                               </div>
                           `);
