@@ -110,12 +110,14 @@ legend.addTo(map);
                
                   if (!isNaN(lat) && !isNaN(lng)) {
 
-                      var shortImageFile = row.image.substring(0, 22); // display only first part of the string as it is long
+                      var img_string = row.image;
+                      var length = 22; // display only first part of the string as it is long
+                      var trimmedString = img_string.length > length ? img_string.substring(0, length - 3) + "..." : img_string.substring(0, length); 
                       var marker = L.marker([lat, lng], { icon : icon}).addTo(map)
                           .bindPopup(`<div id="${row.name}" data-Nid="${name}" data-Sid="${severity}">
                               <strong>${name}</strong><br>
                               Severitate: ${severity} <br>
-                              Imagine: ${shortImageFile} <br>                             
+                              Imagine: ${trimmedString} <br>                             
                               <img id="${row.image}" src="${imageUrl}" alt="Imagine locație" width="200px">
                               </div>
                           `);
